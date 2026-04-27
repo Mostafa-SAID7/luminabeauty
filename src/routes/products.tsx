@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-const SITE_URL = "https://luma-clone-buddy.lovable.app";
+const SITE_URL = "https://luminabeauty.com";
 const TITLE = "Products — Lumina Beauty Signature Skincare Collection";
 const DESC = "Discover Lumina Beauty's signature products: Radiance Glow Serum, Pearl Luminosity Cream, Velvet Lip Elixir and more — clean, dermatologist-tested formulas.";
 

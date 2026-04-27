@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ConfirmationRouteImport } from './routes/confirmation'
+import { Route as CartRouteImport } from './routes/cart'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -29,6 +31,16 @@ const ProductsRoute = ProductsRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfirmationRoute = ConfirmationRouteImport.update({
+  id: '/confirmation',
+  path: '/confirmation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CartRoute = CartRouteImport.update({
+  id: '/cart',
+  path: '/cart',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogRoute = BlogRouteImport.update({
@@ -51,6 +63,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
+  '/cart': typeof CartRoute
+  '/confirmation': typeof ConfirmationRoute
   '/contact': typeof ContactRoute
   '/products': typeof ProductsRoute
   '/shop': typeof ShopRoute
@@ -59,6 +73,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
+  '/cart': typeof CartRoute
+  '/confirmation': typeof ConfirmationRoute
   '/contact': typeof ContactRoute
   '/products': typeof ProductsRoute
   '/shop': typeof ShopRoute
@@ -68,22 +84,51 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
+  '/cart': typeof CartRoute
+  '/confirmation': typeof ConfirmationRoute
   '/contact': typeof ContactRoute
   '/products': typeof ProductsRoute
   '/shop': typeof ShopRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/blog' | '/contact' | '/products' | '/shop'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/cart'
+    | '/confirmation'
+    | '/contact'
+    | '/products'
+    | '/shop'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/blog' | '/contact' | '/products' | '/shop'
-  id: '__root__' | '/' | '/about' | '/blog' | '/contact' | '/products' | '/shop'
+  to:
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/cart'
+    | '/confirmation'
+    | '/contact'
+    | '/products'
+    | '/shop'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/cart'
+    | '/confirmation'
+    | '/contact'
+    | '/products'
+    | '/shop'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   BlogRoute: typeof BlogRoute
+  CartRoute: typeof CartRoute
+  ConfirmationRoute: typeof ConfirmationRoute
   ContactRoute: typeof ContactRoute
   ProductsRoute: typeof ProductsRoute
   ShopRoute: typeof ShopRoute
@@ -110,6 +155,20 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/confirmation': {
+      id: '/confirmation'
+      path: '/confirmation'
+      fullPath: '/confirmation'
+      preLoaderRoute: typeof ConfirmationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cart': {
+      id: '/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof CartRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -140,6 +199,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BlogRoute: BlogRoute,
+  CartRoute: CartRoute,
+  ConfirmationRoute: ConfirmationRoute,
   ContactRoute: ContactRoute,
   ProductsRoute: ProductsRoute,
   ShopRoute: ShopRoute,

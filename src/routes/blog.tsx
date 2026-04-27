@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-const SITE_URL = "https://luma-clone-buddy.lovable.app";
+const SITE_URL = "https://luminabeauty.com";
 const TITLE = "Beauty Journal — Lumina Beauty Skincare Tips & Rituals";
 const DESC = "Editorial guides, ingredient deep-dives and natural beauty rituals from the Lumina Beauty journal.";
 

@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://luma-clone-buddy.lovable.app/</loc>
+    <loc>https://luminabeauty.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://luma-clone-buddy.lovable.app/shop</loc>
+    <loc>https://luminabeauty.com/shop</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://luma-clone-buddy.lovable.app/products</loc>
+    <loc>https://luminabeauty.com/products</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://luma-clone-buddy.lovable.app/about</loc>
+    <loc>https://luminabeauty.com/cart</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://luminabeauty.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://luma-clone-buddy.lovable.app/blog</loc>
+    <loc>https://luminabeauty.com/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://luma-clone-buddy.lovable.app/contact</loc>
+    <loc>https://luminabeauty.com/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

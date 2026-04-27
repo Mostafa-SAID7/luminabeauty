@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://luma-clone-buddy.lovable.app/sitemap.xml
+Sitemap: https://luminabeauty.com/sitemap.xml

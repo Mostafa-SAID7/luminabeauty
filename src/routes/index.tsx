@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 import { Reveal } from "@/components/Reveal";
 import { SmartImage } from "@/components/SmartImage";
 import heroImg from "@/assets/hero.webp";
@@ -18,7 +20,7 @@ import catMakeup from "@/assets/cat-makeup.webp";
 import catHair from "@/assets/cat-hair.webp";
 import catBody from "@/assets/cat-body.webp";
 
-const SITE_URL = "https://luma-clone-buddy.lovable.app";
+const SITE_URL = "https://luminabeauty.com";
 const PAGE_TITLE = "Lumina Beauty — Luxury Natural Skincare for Radiant, Glowing Skin";
 const PAGE_DESC = "Discover Lumina Beauty: luxury natural skincare with botanical actives, vitamin C, and rose hip oil. Cruelty-free, dermatologist-tested formulas — visible glow in 14 days.";
 
@@ -109,46 +111,8 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-function Logo() {
-  return (
-    <a href="#top" className="flex items-center gap-2">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="text-rose-gold">
-        <path d="M12 2c1 4 4 7 8 8-4 1-7 4-8 8-1-4-4-7-8-8 4-1 7-4 8-8z" fill="currentColor" />
-      </svg>
-      <span className="font-display text-2xl tracking-tight text-ivory">Lumina<span className="text-rose-gold">.</span></span>
-    </a>
-  );
-}
 
-function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  return (
-    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "glass-card" : ""}`}>
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 h-16 sm:h-20 flex items-center justify-between">
-        <Logo />
-        <nav className="hidden md:flex items-center gap-8 lg:gap-10 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-          <a href="#products" className="hover:text-ivory transition">Products</a>
-          <a href="#about" className="hover:text-ivory transition">About</a>
-          <a href="#results" className="hover:text-ivory transition">Results</a>
-          <a href="#newsletter" className="hover:text-ivory transition">Contact</a>
-        </nav>
-        <div className="flex items-center gap-3 sm:gap-4">
-          <div className="hidden sm:flex items-center gap-2 text-xs tracking-widest border border-border rounded-full px-3 py-1.5 text-muted-foreground">
-            <span className="text-ivory">EN</span><span>|</span><span>AR</span>
-          </div>
-          <a href="#products" className="shine-btn bg-primary text-primary-foreground text-[10px] sm:text-xs uppercase tracking-[0.2em] rounded-full px-4 sm:px-5 py-2.5 sm:py-3 hover:opacity-90 transition rose-gold-glow">
-            Shop Now
-          </a>
-        </div>
-      </div>
-    </header>
-  );
-}
+
 
 function Hero() {
   return (
@@ -499,21 +463,7 @@ function Newsletter() {
   );
 }
 
-function Footer() {
-  return (
-    <footer className="border-t border-border mt-20 py-12 px-6 lg:px-10">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-        <Logo />
-        <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">© {new Date().getFullYear()} Lumina Beauty — Crafted with nature.</p>
-        <div className="flex gap-6 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-          <a href="#" className="hover:text-rose-gold transition">Instagram</a>
-          <a href="#" className="hover:text-rose-gold transition">Pinterest</a>
-          <a href="#" className="hover:text-rose-gold transition">TikTok</a>
-        </div>
-      </div>
-    </footer>
-  );
-}
+
 
 function LuminaHome() {
   return (
