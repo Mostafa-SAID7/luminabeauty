@@ -22,7 +22,7 @@ export function ChatWidget() {
     const userMessage = {
       id: messages.length + 1,
       text: message,
-      sender: "user",
+      sender: "user" as const,
     };
     setMessages([...messages, userMessage]);
 
@@ -31,7 +31,7 @@ export function ChatWidget() {
       const botMessage = {
         id: messages.length + 2,
         text: t.chat.botResponse,
-        sender: "bot",
+        sender: "bot" as const,
       };
       setMessages((prev) => [...prev, botMessage]);
     }, 1000);
