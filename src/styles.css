@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Electrolize&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap");
 
 @tailwind base;
@@ -35,7 +35,7 @@
   
   body {
     @apply bg-background text-foreground;
-    font-family: "Inter", sans-serif;
+    font-family: "Electrolize", sans-serif;
   }
 
   html {
@@ -361,14 +361,31 @@
 }
 
 [dir="rtl"] body,
-[dir="rtl"] .font-display,
 [dir="rtl"] h1,
 [dir="rtl"] h2,
 [dir="rtl"] h3,
 [dir="rtl"] h4,
 [dir="rtl"] h5,
 [dir="rtl"] h6 {
-  font-family: "Cairo", "Cormorant Garamond", sans-serif;
+  font-family: "Cairo", sans-serif;
+}
+
+[dir="rtl"] .font-display {
+  font-family: "Cairo", sans-serif;
+}
+
+[dir="ltr"] body {
+  font-family: "Electrolize", sans-serif;
+}
+
+[dir="ltr"] h1,
+[dir="ltr"] h2,
+[dir="ltr"] h3,
+[dir="ltr"] h4,
+[dir="ltr"] h5,
+[dir="ltr"] h6,
+[dir="ltr"] .font-display {
+  font-family: "Cormorant Garamond", serif;
 }
 
 [dir="rtl"] .shine-btn::before {
