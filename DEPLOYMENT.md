@@ -16,9 +16,9 @@
 - 🌐 **Language Toggle**: Switch between EN/AR in header
 
 ### Technical Stack
-- **Framework**: TanStack Start (React)
-- **Styling**: Tailwind CSS
-- **Routing**: File-based routing with TanStack Router
+- **Framework**: Vite + React SPA
+- **Styling**: Tailwind CSS v3
+- **Routing**: React Router DOM (client-side routing)
 - **State Management**: React Context (Cart, Language)
 - **Build Tool**: Vite
 - **Deployment**: Netlify-ready
@@ -213,7 +213,7 @@ function Component() {
 ### Build Errors
 ```bash
 # Clear cache and rebuild
-rm -rf node_modules dist .tanstack
+rm -rf node_modules dist
 npm install
 npm run build
 ```
@@ -245,4 +245,4 @@ For issues or questions:
 
 ---
 
-**Built with ❤️ using TanStack Start, React, and Tailwind CSS**
+**Built with ❤️ using Vite, React, and Tailwind CSS**

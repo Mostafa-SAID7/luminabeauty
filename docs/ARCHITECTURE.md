@@ -2,62 +2,54 @@
 
 ## Overview
 
-Lumina Beauty is a **server-side rendered** luxury e-commerce UI built on:
+Lumina Beauty is a **single-page application (SPA)** luxury e-commerce UI built on:
 
 | Layer      | Technology                                                     |
 | ---------- | -------------------------------------------------------------- |
-| Framework  | [TanStack Start](https://tanstack.com/start) v1 (SSR)          |
-| Router     | [TanStack Router](https://tanstack.com/router) v1 (file-based) |
-| UI         | React 19 + Tailwind CSS v4                                     |
-| Build      | Vite 7                                                         |
-| Deployment | Cloudflare Workers (edge SSR)                                  |
-| Font       | Electrolize (Google Fonts)                                     |
+| Framework  | [Vite](https://vitejs.dev/) + React SPA                       |
+| Router     | [React Router DOM](https://reactrouter.com/) v6 (client-side) |
+| UI         | React 18 + Tailwind CSS v3                                    |
+| Build      | Vite 5                                                         |
+| Deployment | Netlify (static hosting)                                       |
+| Font       | Cormorant Garamond + Inter (Google Fonts)                     |
 
 ---
 
 ## Routing
 
-TanStack Router uses **file-based routing**. Every file in `src/routes/` becomes a route:
+React Router DOM uses **component-based routing**. Routes are defined in `src/App.tsx`:
 
 ```
-src/routes/
-├── __root.tsx        → layout shell (head, ChatWidget)
-├── index.tsx         → /
-├── cart.tsx          → /cart
-├── confirmation.tsx  → /confirmation
-├── products.tsx      → /products
-├── shop.tsx          → /shop
-├── about.tsx         → /about
-├── blog.tsx          → /blog
-└── contact.tsx       → /contact
+src/pages/
+├── HomePage.tsx         → /
+├── CartPage.tsx         → /cart
+├── ConfirmationPage.tsx → /confirmation
+└── NotFoundPage.tsx     → /* (404)
 ```
 
-The route tree is auto-generated into `src/routeTree.gen.ts` at dev/build time.
+All routing is client-side with `BrowserRouter` for clean URLs.
 
 ---
 
 ## Rendering
 
-TanStack Start handles SSR. On the first request, the server renders full HTML. After hydration, navigation is client-side SPA.
+Standard React SPA rendering. The server serves static HTML, CSS, and JS. React hydrates on the client and handles all navigation:
 
 ```
-Request → Cloudflare Worker
-         → TanStack Start SSR
-         → React renderToString
-         → HTML streamed to client
-         → React hydrates
-         → SPA navigation takes over
+Request → Static Server (Netlify)
+         → index.html + assets
+         → React mounts to #root
+         → Client-side routing takes over
 ```
 
 ---
 
 ## Styling Architecture
 
-All design tokens live in `src/styles.css` using **Tailwind CSS v4 CSS-first config**:
+All design tokens live in `src/styles.css` using **Tailwind CSS v3**:
 
-- `:root {}` — raw CSS custom properties (colors, fonts, radii)
-- `@theme inline {}` — registers tokens as Tailwind utilities
-- `@layer base {}` — global resets and font assignments
+- `@layer base {}` — CSS custom properties and global resets
+- `tailwind.config.js` — Tailwind configuration with custom colors and animations
 - `@layer utilities {}` — custom utility classes (`.glass-card`, `.shine-btn`, `.reveal`, etc.)
 
 ---
@@ -72,6 +64,41 @@ All design tokens live in `src/styles.css` using **Tailwind CSS v4 CSS-first con
 
 ---
 
-## State
+## State Management
 
-Currently stateless (no global store). Cart state is UI-local. Future: add Zustand or TanStack Query for persistent cart.
+Uses React Context for global state:
+
+- **CartContext**: Shopping cart state with localStorage persistence
+- **LanguageContext**: i18n language switching with RTL support
+
+No external state management library needed for this application size.
+
+---
+
+## Internationalization
+
+Full i18n support with:
+
+- English (default)
+- Arabic (Egyptian dialect) with RTL layout
+- Language switching persisted in localStorage
+- Cairo font for Arabic text
+- Automatic direction switching (LTR/RTL)
+
+---
+
+## Build & Deployment
+
+```bash
+# Development
+npm run dev
+
+# Production build
+npm run build  # → dist/
+
+# Deploy to Netlify
+# Automatically deploys dist/ folder
+# Includes _redirects for SPA routing
+```
+
+The build outputs a static SPA that can be deployed to any static hosting service.
