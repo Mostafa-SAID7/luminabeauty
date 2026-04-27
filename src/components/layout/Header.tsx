@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import type { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -52,7 +53,7 @@ export function Header() {
     return location.pathname.startsWith(path);
   };
 
-  const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
+  const NavLink = ({ href, children }: { href: string; children: ReactNode }) => {
     const active =
       href === "/#products" && location.pathname === "/" && location.hash === "#products";
     return (

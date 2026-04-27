@@ -7,7 +7,7 @@ export function Testimonial() {
   const { t } = useLanguage();
 
   return (
-    <section className="relative py-20 md:py-32 px-5 sm:px-6 lg:px-10 max-w-5xl mx-auto text-center">
+    <section className="relative py-24 md:py-40 px-5 sm:px-6 lg:px-10 max-w-5xl mx-auto text-center">
       <Reveal>
         <span className="text-[10px] uppercase tracking-[0.4em] text-rose-gold">
           {t.testimonial.badge}

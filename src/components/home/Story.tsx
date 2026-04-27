@@ -8,7 +8,7 @@ export function Story() {
   return (
     <section
       id="about"
-      className="relative py-20 md:py-32 px-5 sm:px-6 lg:px-10 max-w-7xl mx-auto overflow-hidden"
+      className="relative py-24 md:py-40 px-5 sm:px-6 lg:px-10 max-w-7xl mx-auto overflow-hidden"
     >
       <div
         className="absolute top-0 right-0 w-full max-w-[500px] h-[300px] sm:h-[500px] pointer-events-none"
