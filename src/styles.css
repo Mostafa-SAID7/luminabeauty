@@ -50,6 +50,17 @@
   h6 {
     font-family: "Cormorant Garamond", serif;
   }
+
+  p,
+  span,
+  a,
+  button,
+  input,
+  textarea,
+  label,
+  div {
+    font-family: inherit;
+  }
 }
 
 @layer utilities {
@@ -387,6 +398,59 @@
   }
 }
 
+@keyframes slide-in-from-top {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-from-bottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-from-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 .animate-float {
   animation: float-particle 6s ease-in-out infinite;
 }
@@ -399,27 +463,64 @@
   animation: scroll-indicator 1.5s ease-in-out infinite;
 }
 
+.animate-slide-in-top {
+  animation: slide-in-from-top 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-slide-in-bottom {
+  animation: slide-in-from-bottom 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-slide-in-right {
+  animation: slide-in-from-right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 /* RTL Support */
 [dir="rtl"] {
   direction: rtl;
 }
 
+[dir="rtl"] *,
 [dir="rtl"] body,
+[dir="rtl"] p,
+[dir="rtl"] span,
+[dir="rtl"] a,
+[dir="rtl"] button,
+[dir="rtl"] input,
+[dir="rtl"] textarea,
+[dir="rtl"] label,
+[dir="rtl"] div {
+  font-family: "Cairo", sans-serif !important;
+}
+
 [dir="rtl"] h1,
 [dir="rtl"] h2,
 [dir="rtl"] h3,
 [dir="rtl"] h4,
 [dir="rtl"] h5,
 [dir="rtl"] h6 {
-  font-family: "Cairo", sans-serif;
+  font-family: "Cairo", sans-serif !important;
 }
 
-[dir="rtl"] .font-display {
-  font-family: "Cairo", sans-serif;
-}
-
-[dir="ltr"] body {
-  font-family: "Electrolize", sans-serif;
+[dir="ltr"] *,
+[dir="ltr"] body,
+[dir="ltr"] p,
+[dir="ltr"] span,
+[dir="ltr"] a,
+[dir="ltr"] button,
+[dir="ltr"] input,
+[dir="ltr"] textarea,
+[dir="ltr"] label,
+[dir="ltr"] div {
+  font-family: "Electrolize", sans-serif !important;
 }
 
 [dir="ltr"] h1,
@@ -427,9 +528,8 @@
 [dir="ltr"] h3,
 [dir="ltr"] h4,
 [dir="ltr"] h5,
-[dir="ltr"] h6,
-[dir="ltr"] .font-display {
-  font-family: "Cormorant Garamond", serif;
+[dir="ltr"] h6 {
+  font-family: "Cormorant Garamond", serif !important;
 }
 
 [dir="rtl"] .shine-btn::before {

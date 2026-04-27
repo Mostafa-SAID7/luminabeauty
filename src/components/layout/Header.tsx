@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useCart } from "@/context/CartContext";
@@ -22,6 +22,7 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
   const { totalItems } = useCart();
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -46,6 +47,29 @@ export function Header() {
     setLanguage(language === "en" ? "ar" : "en");
   };
 
+  const isActive = (path: string) => {
+    if (path === "/") return location.pathname === "/";
+    return location.pathname.startsWith(path);
+  };
+
+  const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
+    const active =
+      href === "/#products" && location.pathname === "/" && location.hash === "#products";
+    return (
+      <a
+        href={href}
+        className={`hover:text-ivory transition-colors relative ${
+          active ? "text-ivory" : "text-muted-foreground"
+        }`}
+      >
+        {children}
+        {active && (
+          <span className="absolute -bottom-1 left-0 right-0 h-px bg-rose-gold animate-scale-in" />
+        )}
+      </a>
+    );
+  };
+
   return (
     <>
       <header
@@ -55,47 +79,45 @@ export function Header() {
           <Logo />
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 lg:gap-10 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            <a href="/#products" className="hover:text-ivory transition">
-              {t.header.products}
-            </a>
-            <a href="/#about" className="hover:text-ivory transition">
-              {t.header.about}
-            </a>
-            <a href="/#results" className="hover:text-ivory transition">
-              {t.header.results}
-            </a>
-            <a href="/#newsletter" className="hover:text-ivory transition">
-              {t.header.contact}
-            </a>
+          <nav className="hidden md:flex items-center gap-8 lg:gap-10 text-xs uppercase tracking-[0.2em]">
+            <NavLink href="/#products">{t.header.products}</NavLink>
+            <NavLink href="/#about">{t.header.about}</NavLink>
+            <NavLink href="/#results">{t.header.results}</NavLink>
+            <NavLink href="/#newsletter">{t.header.contact}</NavLink>
           </nav>
 
           <div className="flex items-center gap-3 sm:gap-4">
             {/* Language Toggle */}
             <button
               onClick={toggleLanguage}
-              className="hidden sm:flex items-center gap-2 text-xs tracking-widest border border-border rounded-full px-3 py-1.5 text-muted-foreground hover:border-rose-gold transition-colors"
+              className="hidden sm:flex items-center gap-2 text-xs tracking-widest border border-border rounded-full px-3 py-1.5 text-muted-foreground hover:border-rose-gold transition-all duration-300"
               aria-label="Toggle language"
             >
-              <span className={language === "en" ? "text-ivory" : ""}>EN</span>
+              <span className={`transition-colors ${language === "en" ? "text-ivory" : ""}`}>
+                EN
+              </span>
               <span>|</span>
-              <span className={language === "ar" ? "text-ivory" : ""}>AR</span>
+              <span className={`transition-colors ${language === "ar" ? "text-ivory" : ""}`}>
+                AR
+              </span>
             </button>
             <Link
               to="/cart"
-              className="relative p-2 text-muted-foreground hover:text-ivory transition-colors"
+              className={`relative p-2 transition-colors ${
+                isActive("/cart") ? "text-ivory" : "text-muted-foreground hover:text-ivory"
+              }`}
               aria-label={t.header.viewCart}
             >
               <ShoppingCart size={20} />
               {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-primary text-primary-foreground text-[9px] flex items-center justify-center font-bold">
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-primary text-primary-foreground text-[9px] flex items-center justify-center font-bold animate-scale-in">
                   {totalItems}
                 </span>
               )}
             </Link>
             <a
               href="/#products"
-              className="hidden sm:inline-block shine-btn bg-primary text-primary-foreground text-[10px] sm:text-xs uppercase tracking-[0.2em] rounded-full px-4 sm:px-5 py-2.5 sm:py-3 hover:opacity-90 transition rose-gold-glow"
+              className="hidden sm:inline-block shine-btn bg-primary text-primary-foreground text-[10px] sm:text-xs uppercase tracking-[0.2em] rounded-full px-4 sm:px-5 py-2.5 sm:py-3 hover:opacity-90 transition-all duration-300 rose-gold-glow"
             >
               {t.header.shopNow}
             </a>
@@ -115,38 +137,38 @@ export function Header() {
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-background/95 backdrop-blur-lg z-40 md:hidden"
+          className="fixed inset-0 bg-background/95 backdrop-blur-lg z-40 md:hidden animate-fade-in"
           onClick={closeMenu}
         >
           <nav
-            className="flex flex-col items-center justify-center h-full gap-8 text-lg uppercase tracking-[0.2em]"
+            className="flex flex-col items-center justify-center h-full gap-8 text-lg uppercase tracking-[0.2em] animate-slide-in-top"
             onClick={(e) => e.stopPropagation()}
           >
             <a
               href="/#products"
               onClick={closeMenu}
-              className="text-muted-foreground hover:text-ivory transition"
+              className="text-muted-foreground hover:text-ivory transition-all duration-300 hover:scale-110"
             >
               {t.header.products}
             </a>
             <a
               href="/#about"
               onClick={closeMenu}
-              className="text-muted-foreground hover:text-ivory transition"
+              className="text-muted-foreground hover:text-ivory transition-all duration-300 hover:scale-110"
             >
               {t.header.about}
             </a>
             <a
               href="/#results"
               onClick={closeMenu}
-              className="text-muted-foreground hover:text-ivory transition"
+              className="text-muted-foreground hover:text-ivory transition-all duration-300 hover:scale-110"
             >
               {t.header.results}
             </a>
             <a
               href="/#newsletter"
               onClick={closeMenu}
-              className="text-muted-foreground hover:text-ivory transition"
+              className="text-muted-foreground hover:text-ivory transition-all duration-300 hover:scale-110"
             >
               {t.header.contact}
             </a>
@@ -156,16 +178,20 @@ export function Header() {
                 toggleLanguage();
                 closeMenu();
               }}
-              className="flex items-center gap-2 text-sm tracking-widest border border-border rounded-full px-4 py-2 text-muted-foreground mt-4 hover:border-rose-gold transition-colors"
+              className="flex items-center gap-2 text-sm tracking-widest border border-border rounded-full px-4 py-2 text-muted-foreground mt-4 hover:border-rose-gold transition-all duration-300 hover:scale-105"
             >
-              <span className={language === "en" ? "text-ivory" : ""}>EN</span>
+              <span className={`transition-colors ${language === "en" ? "text-ivory" : ""}`}>
+                EN
+              </span>
               <span>|</span>
-              <span className={language === "ar" ? "text-ivory" : ""}>AR</span>
+              <span className={`transition-colors ${language === "ar" ? "text-ivory" : ""}`}>
+                AR
+              </span>
             </button>
             <a
               href="/#products"
               onClick={closeMenu}
-              className="shine-btn bg-primary text-primary-foreground text-xs uppercase tracking-[0.2em] rounded-full px-8 py-4 hover:opacity-90 transition rose-gold-glow mt-4"
+              className="shine-btn bg-primary text-primary-foreground text-xs uppercase tracking-[0.2em] rounded-full px-8 py-4 hover:opacity-90 transition-all duration-300 rose-gold-glow mt-4 hover:scale-105"
             >
               {t.header.shopNow}
             </a>
