@@ -113,14 +113,14 @@ See [`docs/DEPLOYMENT.md`](./docs/DEPLOYMENT.md) for a full deployment guide.
 
 All design tokens are defined in [`src/styles.css`](./src/styles.css):
 
-| Token | Value | Usage |
-|---|---|---|
-| `--background` | `#0A0A0A` | Deep black base |
-| `--primary` / rose gold | `#E8B4B8` | Buttons, badges, accents |
-| `--champagne` | `#E8D5B8` | Prices, headings |
-| `--burgundy` | `#8B2F4E` | Deep accent |
-| `--font-sans` | `"Electrolize"` | All body text |
-| `--font-display` | `"Electrolize"` | All headings |
+| Token                   | Value           | Usage                    |
+| ----------------------- | --------------- | ------------------------ |
+| `--background`          | `#0A0A0A`       | Deep black base          |
+| `--primary` / rose gold | `#E8B4B8`       | Buttons, badges, accents |
+| `--champagne`           | `#E8D5B8`       | Prices, headings         |
+| `--burgundy`            | `#8B2F4E`       | Deep accent              |
+| `--font-sans`           | `"Electrolize"` | All body text            |
+| `--font-display`        | `"Electrolize"` | All headings             |
 
 ---
 

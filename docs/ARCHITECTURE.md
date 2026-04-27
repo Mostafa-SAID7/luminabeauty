@@ -4,14 +4,14 @@
 
 Lumina Beauty is a **server-side rendered** luxury e-commerce UI built on:
 
-| Layer | Technology |
-|---|---|
-| Framework | [TanStack Start](https://tanstack.com/start) v1 (SSR) |
-| Router | [TanStack Router](https://tanstack.com/router) v1 (file-based) |
-| UI | React 19 + Tailwind CSS v4 |
-| Build | Vite 7 |
-| Deployment | Cloudflare Workers (edge SSR) |
-| Font | Electrolize (Google Fonts) |
+| Layer      | Technology                                                     |
+| ---------- | -------------------------------------------------------------- |
+| Framework  | [TanStack Start](https://tanstack.com/start) v1 (SSR)          |
+| Router     | [TanStack Router](https://tanstack.com/router) v1 (file-based) |
+| UI         | React 19 + Tailwind CSS v4                                     |
+| Build      | Vite 7                                                         |
+| Deployment | Cloudflare Workers (edge SSR)                                  |
+| Font       | Electrolize (Google Fonts)                                     |
 
 ---
 
@@ -64,11 +64,11 @@ All design tokens live in `src/styles.css` using **Tailwind CSS v4 CSS-first con
 
 ## Components
 
-| Component | Purpose |
-|---|---|
-| `ChatWidget` | Floating bottom-right live chat bubble |
-| `Reveal` | Intersection Observer scroll-reveal wrapper |
-| `SmartImage` | LQIP blur-up progressive image loader |
+| Component    | Purpose                                     |
+| ------------ | ------------------------------------------- |
+| `ChatWidget` | Floating bottom-right live chat bubble      |
+| `Reveal`     | Intersection Observer scroll-reveal wrapper |
+| `SmartImage` | LQIP blur-up progressive image loader       |
 
 ---
 

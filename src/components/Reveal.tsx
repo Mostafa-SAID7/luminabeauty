@@ -48,7 +48,7 @@ export function Reveal({
           setVisible(false);
         }
       },
-      { threshold, rootMargin: "0px 0px -10% 0px" }
+      { threshold, rootMargin: "0px 0px -10% 0px" },
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -57,7 +57,12 @@ export function Reveal({
   return (
     <Tag
       ref={ref as never}
-      className={cn(variantClass[variant], stagger && "stagger", visible && "is-visible", className)}
+      className={cn(
+        variantClass[variant],
+        stagger && "stagger",
+        visible && "is-visible",
+        className,
+      )}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}

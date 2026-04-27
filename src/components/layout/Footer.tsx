@@ -9,9 +9,15 @@ export function Footer() {
           © {new Date().getFullYear()} Lumina Beauty — Crafted with nature.
         </p>
         <div className="flex gap-6 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-          <a href="#" className="hover:text-rose-gold transition">Instagram</a>
-          <a href="#" className="hover:text-rose-gold transition">Pinterest</a>
-          <a href="#" className="hover:text-rose-gold transition">TikTok</a>
+          <a href="#" className="hover:text-rose-gold transition">
+            Instagram
+          </a>
+          <a href="#" className="hover:text-rose-gold transition">
+            Pinterest
+          </a>
+          <a href="#" className="hover:text-rose-gold transition">
+            TikTok
+          </a>
         </div>
       </div>
     </footer>

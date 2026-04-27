@@ -8,6 +8,7 @@ labels: bug
 A clear description of what is broken.
 
 **Steps to Reproduce**
+
 1. Go to '...'
 2. Click '...'
 3. See error
@@ -19,6 +20,7 @@ What should happen.
 If applicable, add screenshots.
 
 **Environment**
+
 - OS:
 - Browser:
 - Node version:

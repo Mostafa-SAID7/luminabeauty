@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Menu, X } from "lucide-react";
 
 export function Logo() {
   return (
@@ -17,6 +17,7 @@ export function Logo() {
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -24,38 +25,131 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
+  const closeMenu = () => setMobileMenuOpen(false);
+
   return (
-    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "glass-card" : ""}`}>
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 h-16 sm:h-20 flex items-center justify-between">
-        <Logo />
-        <nav className="hidden md:flex items-center gap-8 lg:gap-10 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-          <a href="/#products" className="hover:text-ivory transition">Products</a>
-          <a href="/#about" className="hover:text-ivory transition">About</a>
-          <a href="/#results" className="hover:text-ivory transition">Results</a>
-          <a href="/#newsletter" className="hover:text-ivory transition">Contact</a>
-        </nav>
-        <div className="flex items-center gap-3 sm:gap-4">
-          <div className="hidden sm:flex items-center gap-2 text-xs tracking-widest border border-border rounded-full px-3 py-1.5 text-muted-foreground">
-            <span className="text-ivory">EN</span><span>|</span><span>AR</span>
+    <>
+      <header
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "glass-card" : ""}`}
+      >
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 h-16 sm:h-20 flex items-center justify-between">
+          <Logo />
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8 lg:gap-10 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            <a href="/#products" className="hover:text-ivory transition">
+              Products
+            </a>
+            <a href="/#about" className="hover:text-ivory transition">
+              About
+            </a>
+            <a href="/#results" className="hover:text-ivory transition">
+              Results
+            </a>
+            <a href="/#newsletter" className="hover:text-ivory transition">
+              Contact
+            </a>
+          </nav>
+
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="hidden sm:flex items-center gap-2 text-xs tracking-widest border border-border rounded-full px-3 py-1.5 text-muted-foreground">
+              <span className="text-ivory">EN</span>
+              <span>|</span>
+              <span>AR</span>
+            </div>
+            <Link
+              to="/cart"
+              className="relative p-2 text-muted-foreground hover:text-ivory transition-colors"
+              aria-label="View cart"
+            >
+              <ShoppingCart size={20} />
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-primary text-primary-foreground text-[9px] flex items-center justify-center font-bold">
+                2
+              </span>
+            </Link>
+            <a
+              href="/#products"
+              className="hidden sm:inline-block shine-btn bg-primary text-primary-foreground text-[10px] sm:text-xs uppercase tracking-[0.2em] rounded-full px-4 sm:px-5 py-2.5 sm:py-3 hover:opacity-90 transition rose-gold-glow"
+            >
+              Shop Now
+            </a>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-muted-foreground hover:text-ivory transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
-          <Link
-            to="/cart"
-            className="relative p-2 text-muted-foreground hover:text-ivory transition-colors"
-            aria-label="View cart"
-          >
-            <ShoppingCart size={20} />
-            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-primary text-primary-foreground text-[9px] flex items-center justify-center font-bold">
-              2
-            </span>
-          </Link>
-          <a
-            href="/#products"
-            className="shine-btn bg-primary text-primary-foreground text-[10px] sm:text-xs uppercase tracking-[0.2em] rounded-full px-4 sm:px-5 py-2.5 sm:py-3 hover:opacity-90 transition rose-gold-glow"
-          >
-            Shop Now
-          </a>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-background/95 backdrop-blur-lg z-40 md:hidden"
+          onClick={closeMenu}
+        >
+          <nav
+            className="flex flex-col items-center justify-center h-full gap-8 text-lg uppercase tracking-[0.2em]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <a
+              href="/#products"
+              onClick={closeMenu}
+              className="text-muted-foreground hover:text-ivory transition"
+            >
+              Products
+            </a>
+            <a
+              href="/#about"
+              onClick={closeMenu}
+              className="text-muted-foreground hover:text-ivory transition"
+            >
+              About
+            </a>
+            <a
+              href="/#results"
+              onClick={closeMenu}
+              className="text-muted-foreground hover:text-ivory transition"
+            >
+              Results
+            </a>
+            <a
+              href="/#newsletter"
+              onClick={closeMenu}
+              className="text-muted-foreground hover:text-ivory transition"
+            >
+              Contact
+            </a>
+            <div className="flex items-center gap-2 text-sm tracking-widest border border-border rounded-full px-4 py-2 text-muted-foreground mt-4">
+              <span className="text-ivory">EN</span>
+              <span>|</span>
+              <span>AR</span>
+            </div>
+            <a
+              href="/#products"
+              onClick={closeMenu}
+              className="shine-btn bg-primary text-primary-foreground text-xs uppercase tracking-[0.2em] rounded-full px-8 py-4 hover:opacity-90 transition rose-gold-glow mt-4"
+            >
+              Shop Now
+            </a>
+          </nav>
+        </div>
+      )}
+    </>
   );
 }

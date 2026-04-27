@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { ChatWidget } from "@/components/ChatWidget";
 import appCss from "../styles.css?url";
@@ -33,8 +34,16 @@ export const Route = createRootRoute({
       { name: "robots", content: "index, follow, max-image-preview:large" },
       { name: "format-detection", content: "telephone=no" },
       { title: "Lumina Beauty — Luxury Natural Skincare & Clean Beauty" },
-      { name: "description", content: "Lumina Beauty — luxury natural skincare crafted with botanical actives. Cruelty-free, dermatologist-tested formulas for radiant, glowing skin in 14 days." },
-      { name: "keywords", content: "luxury skincare, natural beauty, clean beauty, vitamin C serum, rose hip oil, cruelty-free skincare, dermatologist tested, glowing skin, botanical skincare, vegan beauty, anti-aging, radiance serum, Lumina Beauty" },
+      {
+        name: "description",
+        content:
+          "Lumina Beauty — luxury natural skincare crafted with botanical actives. Cruelty-free, dermatologist-tested formulas for radiant, glowing skin in 14 days.",
+      },
+      {
+        name: "keywords",
+        content:
+          "luxury skincare, natural beauty, clean beauty, vitamin C serum, rose hip oil, cruelty-free skincare, dermatologist tested, glowing skin, botanical skincare, vegan beauty, anti-aging, radiance serum, Lumina Beauty",
+      },
       { name: "author", content: "Lumina Beauty" },
       { property: "og:site_name", content: "Lumina Beauty" },
       { property: "og:type", content: "website" },

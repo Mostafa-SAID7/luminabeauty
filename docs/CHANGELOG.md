@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+
 - Cart page (`/cart`) with product list, quantity controls, and order summary
 - Order confirmation page (`/confirmation`) with order number and delivery info
 - Floating chat widget (bottom-right, global across all pages)
@@ -22,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `.vscode/settings.json` to suppress Tailwind v4 CSS false-positive linter errors
 
 ### Changed
+
 - Replaced `@lovable.dev/vite-tanstack-config` with standard `@tanstack/react-start/config`
 - All `SITE_URL` references updated from `luma-clone-buddy.lovable.app` → `luminabeauty.com`
 - `robots.txt` and `sitemap.xml` updated with canonical domain

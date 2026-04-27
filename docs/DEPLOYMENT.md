@@ -24,7 +24,7 @@ The worker name is configured in `wrangler.jsonc`:
   "name": "lumina-beauty",
   "compatibility_date": "2025-09-24",
   "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry"
+  "main": "@tanstack/react-start/server-entry",
 }
 ```
 
@@ -49,11 +49,11 @@ Copy `.env.example` to `.env` before running locally:
 cp .env.example .env
 ```
 
-| Variable | Required | Description |
-|---|---|---|
-| `VITE_SITE_URL` | Yes | Canonical URL for SEO meta tags |
-| `VITE_GA_MEASUREMENT_ID` | No | Google Analytics 4 ID |
-| `VITE_CONTACT_EMAIL` | No | Contact form recipient |
+| Variable                 | Required | Description                     |
+| ------------------------ | -------- | ------------------------------- |
+| `VITE_SITE_URL`          | Yes      | Canonical URL for SEO meta tags |
+| `VITE_GA_MEASUREMENT_ID` | No       | Google Analytics 4 ID           |
+| `VITE_CONTACT_EMAIL`     | No       | Contact form recipient          |
 
 For Cloudflare Workers, set secrets via:
 
