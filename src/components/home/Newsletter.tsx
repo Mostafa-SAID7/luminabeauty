@@ -4,7 +4,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 
 export function Newsletter() {
   const { t } = useLanguage();
-  
+
   return (
     <section id="newsletter" className="relative py-20 md:py-32 px-5 sm:px-6 overflow-hidden">
       <div

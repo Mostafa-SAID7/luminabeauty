@@ -3,7 +3,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 
 export function Hero() {
   const { t } = useLanguage();
-  
+
   return (
     <section
       id="top"

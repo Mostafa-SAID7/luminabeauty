@@ -5,16 +5,19 @@ import { useLanguage } from "@/i18n/LanguageContext";
 
 export function Testimonial() {
   const { t } = useLanguage();
-  
+
   return (
     <section className="relative py-20 md:py-32 px-5 sm:px-6 lg:px-10 max-w-5xl mx-auto text-center">
       <Reveal>
-        <span className="text-[10px] uppercase tracking-[0.4em] text-rose-gold">{t.testimonial.badge}</span>
+        <span className="text-[10px] uppercase tracking-[0.4em] text-rose-gold">
+          {t.testimonial.badge}
+        </span>
         <h2
           className="mt-4 font-display text-ivory"
           style={{ fontSize: "clamp(2.25rem, 6vw, 4rem)" }}
         >
-          {t.testimonial.title} <em className="shimmer-text not-italic italic font-light">{t.testimonial.titleEm}</em>
+          {t.testimonial.title}{" "}
+          <em className="shimmer-text not-italic italic font-light">{t.testimonial.titleEm}</em>
         </h2>
       </Reveal>
       <Reveal
@@ -40,9 +43,7 @@ export function Testimonial() {
           {t.testimonial.quote}
         </p>
         <div className="mt-6 sm:mt-8">
-          <div className="font-display text-lg sm:text-xl text-ivory">
-            {t.testimonial.author}
-          </div>
+          <div className="font-display text-lg sm:text-xl text-ivory">{t.testimonial.author}</div>
           <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground mt-1">
             {t.testimonial.location}
           </div>

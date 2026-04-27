@@ -7,6 +7,7 @@
 ## ✅ What's Included
 
 ### Core Features
+
 - ✨ **Full Internationalization (i18n)**: English and Egyptian Arabic dialect
 - 🔄 **RTL Support**: Automatic right-to-left layout for Arabic
 - 🛒 **Real Cart Functionality**: Add/remove items, update quantities, localStorage persistence
@@ -16,6 +17,7 @@
 - 🌐 **Language Toggle**: Switch between EN/AR in header
 
 ### Technical Stack
+
 - **Framework**: Vite + React SPA
 - **Styling**: Tailwind CSS v3
 - **Routing**: React Router DOM (client-side routing)
@@ -39,11 +41,12 @@
 3. **Fix: Resolve duplicate imports and add Netlify configuration**
    - Fixed TypeScript errors
    - Added netlify.toml
-   - Added _redirects for SPA routing
+   - Added \_redirects for SPA routing
 
 ## 🚀 Deployment Options
 
 ### Option 1: Netlify (Recommended)
+
 1. Go to [Netlify](https://netlify.com)
 2. Click "Add new site" → "Import an existing project"
 3. Connect to GitHub and select `freetwo7300-hash/luminabeauty`
@@ -53,6 +56,7 @@
 5. Click "Deploy site"
 
 ### Option 2: Vercel
+
 1. Go to [Vercel](https://vercel.com)
 2. Import the GitHub repository
 3. Configure build settings:
@@ -62,6 +66,7 @@
 4. Deploy
 
 ### Option 3: Cloudflare Pages
+
 1. Go to [Cloudflare Pages](https://pages.cloudflare.com)
 2. Connect to GitHub
 3. Select the repository
@@ -123,10 +128,12 @@ luminabeauty/
 ## 🌍 Internationalization
 
 ### Supported Languages
+
 - **English (EN)**: Default language
 - **Arabic (AR)**: Egyptian dialect with RTL support
 
 ### How It Works
+
 1. Language selection persists in localStorage
 2. Automatic RTL layout switching
 3. Cairo font for Arabic text
@@ -137,6 +144,7 @@ luminabeauty/
    - Forms and buttons
 
 ### Adding New Languages
+
 1. Add translations to `src/i18n/translations.ts`
 2. Update the `Language` type
 3. Add font support in `src/styles.css` if needed
@@ -144,6 +152,7 @@ luminabeauty/
 ## 🛒 Cart Functionality
 
 ### Features
+
 - Add products to cart
 - Update quantities (increase/decrease)
 - Remove items
@@ -152,18 +161,19 @@ luminabeauty/
 - Automatic total calculation
 
 ### Usage
+
 ```tsx
-import { useCart } from '@/context/CartContext';
+import { useCart } from "@/context/CartContext";
 
 function Component() {
   const { items, addToCart, updateQuantity, totalItems, subtotal } = useCart();
-  
+
   // Add item
   addToCart({ id, name, price, img, category, slug });
-  
+
   // Update quantity
   updateQuantity(id, newQuantity);
-  
+
   // Remove item
   removeFromCart(id);
 }
@@ -172,6 +182,7 @@ function Component() {
 ## 🎨 Styling
 
 ### Theme Colors
+
 - **Background**: `#0A0A0A` (Deep black)
 - **Surface**: `#141414` (Elevated black)
 - **Rose Gold**: `#E8B4B8` (Primary accent)
@@ -179,6 +190,7 @@ function Component() {
 - **Ivory**: `#FFFEF9` (Text)
 
 ### Custom Effects
+
 - Glass morphism cards
 - Shimmer text animations
 - Rose gold glow effects
@@ -188,11 +200,13 @@ function Component() {
 ## 📱 Responsive Design
 
 ### Breakpoints
+
 - Mobile: < 640px
 - Tablet: 640px - 1024px
 - Desktop: > 1024px
 
 ### Mobile Features
+
 - Hamburger menu
 - Touch-friendly buttons
 - Optimized images
@@ -201,6 +215,7 @@ function Component() {
 ## 🔍 SEO & Performance
 
 ### Optimizations
+
 - Semantic HTML
 - Meta tags configured
 - Sitemap included
@@ -211,6 +226,7 @@ function Component() {
 ## 🐛 Troubleshooting
 
 ### Build Errors
+
 ```bash
 # Clear cache and rebuild
 rm -rf node_modules dist
@@ -219,18 +235,21 @@ npm run build
 ```
 
 ### Language Not Switching
+
 - Check browser console for errors
 - Clear localStorage: `localStorage.clear()`
 - Verify LanguageProvider wraps the app
 
 ### Cart Not Persisting
+
 - Check localStorage is enabled
-- Verify CartProvider is in __root.tsx
+- Verify CartProvider is in \_\_root.tsx
 - Check browser console for errors
 
 ## 📞 Support
 
 For issues or questions:
+
 1. Check the GitHub Issues
 2. Review the documentation
 3. Contact the development team

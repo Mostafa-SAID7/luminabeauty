@@ -32,9 +32,7 @@ export function Story() {
             </Reveal>
           </div>
           <div className="absolute -bottom-8 -right-8 hidden md:block max-w-xs glass-card rounded-2xl p-6 rose-gold-glow">
-            <p className="font-display italic text-lg leading-snug text-ivory">
-              {t.story.quote}
-            </p>
+            <p className="font-display italic text-lg leading-snug text-ivory">{t.story.quote}</p>
           </div>
         </Reveal>
         <Reveal variant="right" delay={150} className="lg:col-span-7">

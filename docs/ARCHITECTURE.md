@@ -4,13 +4,13 @@
 
 Lumina Beauty is a **single-page application (SPA)** luxury e-commerce UI built on:
 
-| Layer      | Technology                                                     |
-| ---------- | -------------------------------------------------------------- |
+| Layer      | Technology                                                    |
+| ---------- | ------------------------------------------------------------- |
 | Framework  | [Vite](https://vitejs.dev/) + React SPA                       |
 | Router     | [React Router DOM](https://reactrouter.com/) v6 (client-side) |
 | UI         | React 18 + Tailwind CSS v3                                    |
-| Build      | Vite 5                                                         |
-| Deployment | Netlify (static hosting)                                       |
+| Build      | Vite 5                                                        |
+| Deployment | Netlify (static hosting)                                      |
 | Font       | Cormorant Garamond + Inter (Google Fonts)                     |
 
 ---

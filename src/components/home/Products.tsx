@@ -8,7 +8,7 @@ export function Products() {
   const { addToCart } = useCart();
   const { t } = useLanguage();
 
-  const handleAddToCart = (product: typeof PRODUCTS[0]) => {
+  const handleAddToCart = (product: (typeof PRODUCTS)[0]) => {
     addToCart({
       id: product.slug,
       name: product.name,
@@ -35,9 +35,7 @@ export function Products() {
           {t.products.title}{" "}
           <em className="shimmer-text not-italic italic font-light">{t.products.titleEm}</em>
         </h2>
-        <p className="mt-5 md:mt-6 text-sm md:text-base text-muted-foreground">
-          {t.products.desc}
-        </p>
+        <p className="mt-5 md:mt-6 text-sm md:text-base text-muted-foreground">{t.products.desc}</p>
       </Reveal>
       <Reveal stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {PRODUCTS.map((p) => (

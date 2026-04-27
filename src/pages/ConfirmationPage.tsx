@@ -81,7 +81,9 @@ function ConfirmationPage() {
               <span className="text-muted-foreground uppercase tracking-widest text-[10px]">
                 {t.confirmation.items}
               </span>
-              <span className="text-ivory text-sm">{totalItems} {t.confirmation.itemsCount}</span>
+              <span className="text-ivory text-sm">
+                {totalItems} {t.confirmation.itemsCount}
+              </span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-muted-foreground uppercase tracking-widest text-[10px]">

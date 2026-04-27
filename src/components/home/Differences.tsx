@@ -12,18 +12,20 @@ const ICON_MAP = {
 
 export function Differences() {
   const { t } = useLanguage();
-  
+
   const items = [
     { icon: "Sparkles", title: t.differences.natural.title, desc: t.differences.natural.desc },
     { icon: "Heart", title: t.differences.crueltyFree.title, desc: t.differences.crueltyFree.desc },
     { icon: "ShieldCheck", title: t.differences.tested.title, desc: t.differences.tested.desc },
     { icon: "Star", title: t.differences.results.title, desc: t.differences.results.desc },
   ];
-  
+
   return (
     <section className="relative py-20 md:py-32 px-5 sm:px-6 lg:px-10 max-w-7xl mx-auto">
       <Reveal className="text-center max-w-3xl mx-auto mb-14 md:mb-20">
-        <span className="text-[10px] uppercase tracking-[0.4em] text-rose-gold">{t.differences.badge}</span>
+        <span className="text-[10px] uppercase tracking-[0.4em] text-rose-gold">
+          {t.differences.badge}
+        </span>
         <h2
           className="mt-5 md:mt-6 font-display text-ivory leading-[0.95]"
           style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)" }}

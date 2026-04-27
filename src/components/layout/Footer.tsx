@@ -20,7 +20,7 @@ function TikTokIcon({ className }: { className?: string }) {
 
 export function Footer() {
   const { t } = useLanguage();
-  
+
   return (
     <footer className="border-t border-border mt-20 py-12 px-6 lg:px-10">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">

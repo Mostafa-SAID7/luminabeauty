@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { KeyboardEvent } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { Message } from "@/models";
@@ -39,7 +40,7 @@ export function ChatWidget() {
     setMessage("");
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyPress = (e: KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
