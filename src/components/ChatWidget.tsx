@@ -1,7 +1,4 @@
 import { useState } from "react";
-import { MessageCircle, X } from "lucide-react";
-
-import { useState } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
 
 export function ChatWidget() {
