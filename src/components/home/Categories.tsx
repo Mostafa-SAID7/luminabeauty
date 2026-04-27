@@ -32,7 +32,7 @@ export function Categories() {
           <a
             key={c.name}
             href="#products"
-            className="product-card-hover group relative aspect-[3/4] rounded-3xl overflow-hidden block"
+            className="group relative aspect-[3/4] rounded-3xl overflow-hidden block border border-border hover:border-rose-gold/30 transition-all duration-500"
           >
             <SmartImage
               src={c.img}
@@ -40,18 +40,24 @@ export function Categories() {
               width={1024}
               height={1280}
               wrapperClassName="absolute inset-0 w-full h-full"
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 group-hover:brightness-110"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent group-hover:from-background/90 transition-all duration-500" />
             <div className="absolute inset-0 p-6 flex flex-col justify-end">
-              <span className="text-[10px] uppercase tracking-[0.3em] text-rose-gold">
+              <span className="text-[10px] uppercase tracking-[0.3em] text-rose-gold group-hover:text-champagne transition-colors duration-300">
                 {c.count} {t.categories.products}
               </span>
-              <h3 className="mt-2 font-display text-3xl text-ivory">
+              <h3 className="mt-2 font-display text-3xl text-ivory group-hover:text-rose-gold transition-colors duration-300">
                 {categoryNames[c.name] || c.name}
               </h3>
-              <span className="mt-4 text-[10px] uppercase tracking-[0.3em] text-muted-foreground group-hover:text-ivory transition inline-flex items-center gap-2">
-                {t.header.shopNow} <span aria-hidden>→</span>
+              <span className="mt-4 text-[10px] uppercase tracking-[0.3em] text-muted-foreground group-hover:text-ivory transition-all duration-300 inline-flex items-center gap-2 group-hover:gap-3">
+                {t.header.shopNow}{" "}
+                <span
+                  aria-hidden
+                  className="group-hover:translate-x-1 transition-transform duration-300"
+                >
+                  →
+                </span>
               </span>
             </div>
           </a>
