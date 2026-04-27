@@ -511,3 +511,33 @@
 .animate-scroll-indicator {
   animation: scroll-indicator 1.5s ease-in-out infinite;
 }
+
+/* ──────────────────────────────────────────────────────────── */
+/*  RTL Support                                                  */
+/* ──────────────────────────────────────────────────────────── */
+
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap");
+
+[dir="rtl"] {
+  direction: rtl;
+}
+
+[dir="rtl"] body,
+[dir="rtl"] .font-display,
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  font-family: "Cairo", var(--font-display), sans-serif;
+}
+
+/* RTL-specific adjustments */
+[dir="rtl"] .shine-btn::before {
+  left: 150%;
+}
+
+[dir="rtl"] .shine-btn:hover::before {
+  left: -100%;
+}

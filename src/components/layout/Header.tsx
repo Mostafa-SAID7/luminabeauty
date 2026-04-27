@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { ShoppingCart, Menu, X } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export function Logo() {
   return (
@@ -18,6 +19,7 @@ export function Logo() {
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -38,6 +40,10 @@ export function Header() {
 
   const closeMenu = () => setMobileMenuOpen(false);
 
+  const toggleLanguage = () => {
+    setLanguage(language === "en" ? "ar" : "en");
+  };
+
   return (
     <>
       <header
@@ -49,29 +55,34 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8 lg:gap-10 text-xs uppercase tracking-[0.2em] text-muted-foreground">
             <a href="/#products" className="hover:text-ivory transition">
-              Products
+              {t.header.products}
             </a>
             <a href="/#about" className="hover:text-ivory transition">
-              About
+              {t.header.about}
             </a>
             <a href="/#results" className="hover:text-ivory transition">
-              Results
+              {t.header.results}
             </a>
             <a href="/#newsletter" className="hover:text-ivory transition">
-              Contact
+              {t.header.contact}
             </a>
           </nav>
 
           <div className="flex items-center gap-3 sm:gap-4">
-            <div className="hidden sm:flex items-center gap-2 text-xs tracking-widest border border-border rounded-full px-3 py-1.5 text-muted-foreground">
-              <span className="text-ivory">EN</span>
+            {/* Language Toggle */}
+            <button
+              onClick={toggleLanguage}
+              className="hidden sm:flex items-center gap-2 text-xs tracking-widest border border-border rounded-full px-3 py-1.5 text-muted-foreground hover:border-rose-gold transition-colors"
+              aria-label="Toggle language"
+            >
+              <span className={language === "en" ? "text-ivory" : ""}>EN</span>
               <span>|</span>
-              <span>AR</span>
-            </div>
+              <span className={language === "ar" ? "text-ivory" : ""}>AR</span>
+            </button>
             <Link
               to="/cart"
               className="relative p-2 text-muted-foreground hover:text-ivory transition-colors"
-              aria-label="View cart"
+              aria-label={t.header.viewCart}
             >
               <ShoppingCart size={20} />
               <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-primary text-primary-foreground text-[9px] flex items-center justify-center font-bold">
@@ -82,14 +93,14 @@ export function Header() {
               href="/#products"
               className="hidden sm:inline-block shine-btn bg-primary text-primary-foreground text-[10px] sm:text-xs uppercase tracking-[0.2em] rounded-full px-4 sm:px-5 py-2.5 sm:py-3 hover:opacity-90 transition rose-gold-glow"
             >
-              Shop Now
+              {t.header.shopNow}
             </a>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 text-muted-foreground hover:text-ivory transition-colors"
-              aria-label="Toggle menu"
+              aria-label={t.header.toggleMenu}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -112,40 +123,47 @@ export function Header() {
               onClick={closeMenu}
               className="text-muted-foreground hover:text-ivory transition"
             >
-              Products
+              {t.header.products}
             </a>
             <a
               href="/#about"
               onClick={closeMenu}
               className="text-muted-foreground hover:text-ivory transition"
             >
-              About
+              {t.header.about}
             </a>
             <a
               href="/#results"
               onClick={closeMenu}
               className="text-muted-foreground hover:text-ivory transition"
             >
-              Results
+              {t.header.results}
             </a>
             <a
               href="/#newsletter"
               onClick={closeMenu}
               className="text-muted-foreground hover:text-ivory transition"
             >
-              Contact
+              {t.header.contact}
             </a>
-            <div className="flex items-center gap-2 text-sm tracking-widest border border-border rounded-full px-4 py-2 text-muted-foreground mt-4">
-              <span className="text-ivory">EN</span>
+            {/* Mobile Language Toggle */}
+            <button
+              onClick={() => {
+                toggleLanguage();
+                closeMenu();
+              }}
+              className="flex items-center gap-2 text-sm tracking-widest border border-border rounded-full px-4 py-2 text-muted-foreground mt-4 hover:border-rose-gold transition-colors"
+            >
+              <span className={language === "en" ? "text-ivory" : ""}>EN</span>
               <span>|</span>
-              <span>AR</span>
-            </div>
+              <span className={language === "ar" ? "text-ivory" : ""}>AR</span>
+            </button>
             <a
               href="/#products"
               onClick={closeMenu}
               className="shine-btn bg-primary text-primary-foreground text-xs uppercase tracking-[0.2em] rounded-full px-8 py-4 hover:opacity-90 transition rose-gold-glow mt-4"
             >
-              Shop Now
+              {t.header.shopNow}
             </a>
           </nav>
         </div>
