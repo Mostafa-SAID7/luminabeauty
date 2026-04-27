@@ -1,10 +1,17 @@
+import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { SmartImage } from "@/components/SmartImage";
+import { CategoryLightbox } from "@/components/CategoryLightbox";
 import { CATEGORIES } from "@/constants";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 export function Categories() {
   const { t } = useLanguage();
+  const [selectedCategory, setSelectedCategory] = useState<{
+    name: string;
+    img: string;
+    count: number;
+  } | null>(null);
 
   const categoryNames: Record<string, string> = {
     Skincare: t.categories.items.skincare,
@@ -14,55 +21,66 @@ export function Categories() {
   };
 
   return (
-    <section className="relative py-24 md:py-40 px-5 sm:px-6 lg:px-10 max-w-7xl mx-auto">
-      <Reveal className="text-center max-w-2xl mx-auto mb-14 md:mb-20">
-        <span className="text-[10px] uppercase tracking-[0.4em] text-rose-gold">
-          {t.categories.badge}
-        </span>
-        <h2
-          className="mt-4 font-display text-ivory"
-          style={{ fontSize: "clamp(2.25rem, 6vw, 4rem)" }}
-        >
-          {t.categories.title}{" "}
-          <em className="shimmer-text not-italic italic font-light">{t.categories.titleEm}</em>
-        </h2>
-      </Reveal>
-      <Reveal stagger className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-        {CATEGORIES.map((c) => (
-          <a
-            key={c.name}
-            href="#products"
-            className="group relative aspect-[3/4] rounded-3xl overflow-hidden block border border-border hover:border-rose-gold/30 transition-all duration-500"
+    <>
+      <section className="relative py-24 md:py-40 px-5 sm:px-6 lg:px-10 max-w-7xl mx-auto">
+        <Reveal className="text-center max-w-2xl mx-auto mb-14 md:mb-20">
+          <span className="text-[10px] uppercase tracking-[0.4em] text-rose-gold">
+            {t.categories.badge}
+          </span>
+          <h2
+            className="mt-4 font-display text-ivory"
+            style={{ fontSize: "clamp(2.25rem, 6vw, 4rem)" }}
           >
-            <SmartImage
-              src={c.img}
-              alt={c.alt}
-              width={1024}
-              height={1280}
-              wrapperClassName="absolute inset-0 w-full h-full"
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 group-hover:brightness-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent group-hover:from-background/90 transition-all duration-500" />
-            <div className="absolute inset-0 p-6 flex flex-col justify-end">
-              <span className="text-[10px] uppercase tracking-[0.3em] text-rose-gold group-hover:text-champagne transition-colors duration-300">
-                {c.count} {t.categories.products}
-              </span>
-              <h3 className="mt-2 font-display text-3xl text-ivory group-hover:text-rose-gold transition-colors duration-300">
-                {categoryNames[c.name] || c.name}
-              </h3>
-              <span className="mt-4 text-[10px] uppercase tracking-[0.3em] text-muted-foreground group-hover:text-ivory transition-all duration-300 inline-flex items-center gap-2 group-hover:gap-3">
-                {t.header.shopNow}{" "}
-                <span
-                  aria-hidden
-                  className="group-hover:translate-x-1 transition-transform duration-300"
-                >
-                  →
+            {t.categories.title}{" "}
+            <em className="shimmer-text not-italic italic font-light">{t.categories.titleEm}</em>
+          </h2>
+        </Reveal>
+        <Reveal stagger className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+          {CATEGORIES.map((c) => (
+            <button
+              key={c.name}
+              onClick={() => setSelectedCategory({ name: c.name, img: c.img, count: c.count })}
+              className="group relative aspect-[3/4] rounded-3xl overflow-hidden block border border-border hover:border-rose-gold/30 transition-all duration-500 cursor-pointer"
+            >
+              <SmartImage
+                src={c.img}
+                alt={c.alt}
+                width={1024}
+                height={1280}
+                wrapperClassName="absolute inset-0 w-full h-full"
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 group-hover:brightness-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent group-hover:from-background/90 transition-all duration-500" />
+              <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-rose-gold group-hover:text-champagne transition-colors duration-300">
+                  {c.count} {t.categories.products}
                 </span>
-              </span>
-            </div>
-          </a>
-        ))}
-      </Reveal>
-    </section>
+                <h3 className="mt-2 font-display text-3xl text-ivory group-hover:text-rose-gold transition-colors duration-300">
+                  {categoryNames[c.name] || c.name}
+                </h3>
+                <span className="mt-4 text-[10px] uppercase tracking-[0.3em] text-muted-foreground group-hover:text-ivory transition-all duration-300 inline-flex items-center gap-2 group-hover:gap-3">
+                  {t.header.shopNow}{" "}
+                  <span
+                    aria-hidden
+                    className="group-hover:translate-x-1 transition-transform duration-300"
+                  >
+                    →
+                  </span>
+                </span>
+              </div>
+            </button>
+          ))}
+        </Reveal>
+      </section>
+
+      {selectedCategory && (
+        <CategoryLightbox
+          category={selectedCategory.name}
+          categoryImage={selectedCategory.img}
+          productCount={selectedCategory.count}
+          onClose={() => setSelectedCategory(null)}
+        />
+      )}
+    </>
   );
 }
