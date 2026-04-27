@@ -1,16 +1,6 @@
 import { Reveal } from "@/components/Reveal";
 import { SmartImage } from "@/components/SmartImage";
-import catSkincare from "@/assets/cat-skincare.webp";
-import catMakeup from "@/assets/cat-makeup.webp";
-import catHair from "@/assets/cat-hair.webp";
-import catBody from "@/assets/cat-body.webp";
-
-const categories = [
-  { img: catSkincare, count: 42, name: "Skincare", alt: "Lumina Beauty skincare collection — serums, creams and toners for radiant skin" },
-  { img: catMakeup, count: 28, name: "Makeup", alt: "Lumina Beauty makeup collection — lip elixirs, bronzers and natural pigments" },
-  { img: catHair, count: 19, name: "Hair Care", alt: "Lumina Beauty hair care collection — botanical shampoos and luminous treatments" },
-  { img: catBody, count: 15, name: "Body Care", alt: "Lumina Beauty body care collection — natural lotions and nourishing oils" },
-];
+import { CATEGORIES } from "@/constants";
 
 export function Categories() {
   return (
@@ -20,7 +10,7 @@ export function Categories() {
         <h2 className="mt-4 font-display text-ivory" style={{ fontSize: "clamp(2.25rem, 6vw, 4rem)" }}>Explore the <em className="shimmer-text not-italic italic font-light">Collection.</em></h2>
       </Reveal>
       <Reveal stagger className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-        {categories.map((c) => (
+        {CATEGORIES.map((c) => (
           <a key={c.name} href="#products" className="product-card-hover group relative aspect-[3/4] rounded-3xl overflow-hidden block">
             <SmartImage src={c.img} alt={c.alt} width={1024} height={1280} wrapperClassName="absolute inset-0 w-full h-full" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />

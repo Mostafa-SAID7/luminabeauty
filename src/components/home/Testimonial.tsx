@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/Reveal";
 import { SmartImage } from "@/components/SmartImage";
-import testimonialImg from "@/assets/testimonial.webp";
+import { TESTIMONIAL_DATA } from "@/constants";
 
 export function Testimonial() {
   return (
@@ -11,13 +11,13 @@ export function Testimonial() {
       </Reveal>
       <Reveal variant="scale" delay={120} className="mt-12 md:mt-16 relative glass-card rounded-3xl p-8 sm:p-10 md:p-12 rose-gold-glow">
         <span className="absolute -top-6 sm:-top-8 left-1/2 -translate-x-1/2 font-display text-7xl sm:text-9xl text-rose-gold leading-none">"</span>
-        <SmartImage src={testimonialImg} alt="Sarah Mitchell, verified Lumina Beauty customer from New York" width={800} height={800} wrapperClassName="mx-auto w-16 h-16 sm:w-20 sm:h-20 rounded-full ring-2 ring-rose-gold" className="w-full h-full object-cover" />
+        <SmartImage src={TESTIMONIAL_DATA.img} alt={`${TESTIMONIAL_DATA.author}, verified Lumina Beauty customer from ${TESTIMONIAL_DATA.location}`} width={800} height={800} wrapperClassName="mx-auto w-16 h-16 sm:w-20 sm:h-20 rounded-full ring-2 ring-rose-gold" className="w-full h-full object-cover" />
         <p className="mt-6 sm:mt-8 font-display italic text-balance leading-snug text-ivory" style={{ fontSize: "clamp(1.125rem, 3vw, 1.875rem)" }}>
-          "The Radiance Serum transformed my skin in just two weeks. I've never received so many compliments. Lumina is the only brand I trust."
+          {TESTIMONIAL_DATA.quote}
         </p>
         <div className="mt-6 sm:mt-8">
-          <div className="font-display text-lg sm:text-xl text-ivory">Sarah Mitchell</div>
-          <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground mt-1">New York, USA</div>
+          <div className="font-display text-lg sm:text-xl text-ivory">{TESTIMONIAL_DATA.author}</div>
+          <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground mt-1">{TESTIMONIAL_DATA.location}</div>
         </div>
       </Reveal>
     </section>

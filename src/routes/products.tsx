@@ -1,16 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-
-const SITE_URL = "https://luminabeauty.com";
-const TITLE = "Products — Lumina Beauty Signature Skincare Collection";
-const DESC = "Discover Lumina Beauty's signature products: Radiance Glow Serum, Pearl Luminosity Cream, Velvet Lip Elixir and more — clean, dermatologist-tested formulas.";
+import { PRODUCTS_PAGE_DATA, SITE_URL } from "@/constants";
 
 export const Route = createFileRoute("/products")({
   head: () => ({
     meta: [
-      { title: TITLE },
-      { name: "description", content: DESC },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESC },
+      { title: PRODUCTS_PAGE_DATA.title },
+      { name: "description", content: PRODUCTS_PAGE_DATA.desc },
+      { property: "og:title", content: PRODUCTS_PAGE_DATA.title },
+      { property: "og:description", content: PRODUCTS_PAGE_DATA.desc },
       { property: "og:url", content: `${SITE_URL}/products` },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/products` }],

@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/Reveal";
 import { SmartImage } from "@/components/SmartImage";
-import storyImg from "@/assets/story.webp";
+import { STORY_DATA } from "@/constants";
 
 export function Story() {
   return (
@@ -11,7 +11,7 @@ export function Story() {
           <div className="aspect-[3/4] rounded-3xl overflow-hidden group">
             <Reveal variant="zoom" as="div" className="w-full h-full">
               <SmartImage
-                src={storyImg}
+                src={STORY_DATA.img}
                 alt="Founder of Lumina Beauty — elegant woman with luminous, glowing skin in warm golden light"
                 width={1024}
                 height={1365}
@@ -22,20 +22,20 @@ export function Story() {
           </div>
           <div className="absolute -bottom-8 -right-8 hidden md:block max-w-xs glass-card rounded-2xl p-6 rose-gold-glow">
             <p className="font-display italic text-lg leading-snug text-ivory">
-              "Beauty is not about perfection. It's about confidence in your own luminous skin."
+              {STORY_DATA.quote}
             </p>
           </div>
         </Reveal>
         <Reveal variant="right" delay={150} className="lg:col-span-7">
           <span className="text-[10px] uppercase tracking-[0.5em] text-rose-gold font-bold">Our Story</span>
           <h2 className="mt-5 font-display text-balance leading-[0.95] text-ivory font-light" style={{ fontSize: "clamp(2.25rem, 6vw, 5rem)" }}>
-            Born from Nature,<br />Refined by Science.
+            {STORY_DATA.title}<br />{STORY_DATA.titleBr}
           </h2>
           <p className="mt-8 text-muted-foreground leading-relaxed max-w-xl font-light">
-            Lumina Beauty was founded on a singular belief: that the most powerful beauty ingredients are found in nature. Every formula begins in our botanical laboratories, where ancient remedies meet modern dermatology to create products that don't just enhance your beauty — they reveal it.
+            {STORY_DATA.desc}
           </p>
           <div className="mt-10 md:mt-12 grid grid-cols-3 gap-4 sm:gap-6 border-t border-border pt-8 md:pt-10">
-            {[["12+", "Years of Expertise"], ["97%", "Customer Satisfaction"], ["100%", "Natural Ingredients"]].map(([n, l]) => (
+            {STORY_DATA.stats.map(([n, l]) => (
               <div key={l}>
                 <div className="font-display text-2xl sm:text-3xl md:text-4xl font-light text-rose-gold">{n}</div>
                 <div className="mt-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{l}</div>

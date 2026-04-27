@@ -5,7 +5,8 @@ export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 z-[99]">
+    <div className="fixed bottom-6 right-6 z-[10001]">
+      {import.meta.env.DEV && console.log("ChatWidget rendered")}
       {isOpen ? (
         <div className="bg-surface-2 border border-border rounded-2xl w-80 shadow-2xl overflow-hidden flex flex-col mb-4">
           <div className="bg-surface p-4 border-b border-border flex justify-between items-center">
@@ -40,7 +41,7 @@ export function ChatWidget() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-primary text-primary-foreground p-4 rounded-full shadow-lg hover:scale-105 transition-transform rose-gold-glow ml-auto flex items-center justify-center"
+          className="bg-primary text-primary-foreground p-4 rounded-full shadow-lg hover:scale-105 transition-transform rose-gold-glow flex items-center justify-center pointer-events-auto"
           aria-label="Open chat"
         >
           <MessageCircle size={24} />
