@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { useCart } from "@/context/CartContext";
 
 export const Route = createFileRoute("/confirmation")({
   component: ConfirmationPage,
@@ -17,7 +19,11 @@ export const Route = createFileRoute("/confirmation")({
 });
 
 function ConfirmationPage() {
+  const { t } = useLanguage();
+  const { totalItems, subtotal } = useCart();
   const orderNumber = `LB-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+  const shipping = 10;
+  const total = subtotal + shipping;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -51,57 +57,56 @@ function ConfirmationPage() {
           </div>
 
           <span className="text-[10px] uppercase tracking-[0.4em] text-rose-gold">
-            Order Confirmed
+            {t.confirmation.badge}
           </span>
 
           <h1
             className="mt-4 font-display leading-[0.95] text-ivory"
             style={{ fontSize: "clamp(2.5rem, 7vw, 5rem)" }}
           >
-            Thank You
+            {t.confirmation.title}
             <br />
-            <em className="shimmer-text not-italic italic font-light">for Your Order.</em>
+            <em className="shimmer-text not-italic italic font-light">{t.confirmation.titleEm}</em>
           </h1>
 
           <p className="mt-6 text-muted-foreground leading-relaxed max-w-md mx-auto">
-            Your Lumina Beauty order has been placed successfully. A confirmation email is on its
-            way to your inbox.
+            {t.confirmation.desc}
           </p>
 
           {/* Order details card */}
           <div className="mt-10 glass-card rounded-3xl p-8 text-left space-y-5">
             <div className="flex justify-between items-center text-sm border-b border-border pb-4">
               <span className="text-muted-foreground uppercase tracking-widest text-[10px]">
-                Order Number
+                {t.confirmation.orderNumber}
               </span>
               <span className="font-display text-champagne text-lg">{orderNumber}</span>
             </div>
             <div className="flex justify-between items-center text-sm border-b border-border pb-4">
               <span className="text-muted-foreground uppercase tracking-widest text-[10px]">
-                Estimated Delivery
+                {t.confirmation.estimatedDelivery}
               </span>
-              <span className="text-ivory text-sm">3–5 Business Days</span>
+              <span className="text-ivory text-sm">{t.confirmation.deliveryTime}</span>
             </div>
             <div className="flex justify-between items-center text-sm border-b border-border pb-4">
               <span className="text-muted-foreground uppercase tracking-widest text-[10px]">
-                Items
+                {t.confirmation.items}
               </span>
-              <span className="text-ivory text-sm">2 Products</span>
+              <span className="text-ivory text-sm">{totalItems} {t.confirmation.itemsCount}</span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-muted-foreground uppercase tracking-widest text-[10px]">
-                Total
+                {t.cart.total}
               </span>
-              <span className="font-display text-champagne text-xl">$183</span>
+              <span className="font-display text-champagne text-xl">${total}</span>
             </div>
           </div>
 
           {/* Perks */}
           <div className="mt-8 grid grid-cols-3 gap-4">
             {[
-              { icon: "🌿", label: "Natural Ingredients" },
-              { icon: "🐰", label: "Cruelty-Free" },
-              { icon: "✨", label: "Glow in 14 Days" },
+              { icon: "🌿", label: t.confirmation.perks.natural },
+              { icon: "🐰", label: t.confirmation.perks.crueltyFree },
+              { icon: "✨", label: t.confirmation.perks.glow },
             ].map((p) => (
               <div key={p.label} className="glass-card rounded-2xl p-4 text-center">
                 <span className="text-2xl">{p.icon}</span>
@@ -117,13 +122,13 @@ function ConfirmationPage() {
               to="/"
               className="shine-btn bg-primary text-primary-foreground text-xs uppercase tracking-[0.2em] rounded-full px-8 py-4 hover:opacity-90 transition rose-gold-glow"
             >
-              Continue Shopping
+              {t.confirmation.continueShopping}
             </Link>
             <a
               href="mailto:hello@luminabeauty.com"
               className="glass-card text-ivory text-xs uppercase tracking-[0.2em] rounded-full px-8 py-4 hover:bg-surface-2 transition"
             >
-              Contact Support
+              {t.confirmation.contactSupport}
             </a>
           </div>
         </div>

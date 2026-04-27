@@ -2,6 +2,7 @@ import * as React from "react";
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { ChatWidget } from "@/components/ChatWidget";
 import { LanguageProvider } from "@/i18n/LanguageContext";
+import { CartProvider } from "@/context/CartContext";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -81,8 +82,10 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <LanguageProvider>
-      <Outlet />
-      <ChatWidget />
+      <CartProvider>
+        <Outlet />
+        <ChatWidget />
+      </CartProvider>
     </LanguageProvider>
   );
 }

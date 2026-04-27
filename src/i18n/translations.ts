@@ -380,7 +380,7 @@ export const translations = {
         "شكراً على رسالتك! خبراء الجمال بتوعنا هيردوا عليكي قريب. في الوقت ده، اتفرجي على منتجاتنا!",
     },
   },
-} as const;
+};
 
 export type Language = keyof typeof translations;
 export type TranslationKeys = typeof translations.en;

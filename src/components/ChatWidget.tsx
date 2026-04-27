@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
+import type { Message } from "@/models";
 
 export function ChatWidget() {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      text: "Hello! Welcome to Lumina Beauty. How can we help you find your perfect glow today?",
+      text: t.chat.welcome,
       sender: "bot",
     },
   ]);
@@ -27,7 +30,7 @@ export function ChatWidget() {
     setTimeout(() => {
       const botMessage = {
         id: messages.length + 2,
-        text: "Thank you for your message! Our beauty experts will get back to you shortly. In the meantime, feel free to explore our products!",
+        text: t.chat.botResponse,
         sender: "bot",
       };
       setMessages((prev) => [...prev, botMessage]);
@@ -48,7 +51,7 @@ export function ChatWidget() {
       {isOpen ? (
         <div className="bg-surface-2 border border-border rounded-2xl w-[calc(100vw-2rem)] max-w-sm sm:w-80 shadow-2xl overflow-hidden flex flex-col mb-4">
           <div className="bg-surface p-4 border-b border-border flex justify-between items-center">
-            <span className="font-display text-ivory text-base sm:text-lg">Chat with Us</span>
+            <span className="font-display text-ivory text-base sm:text-lg">{t.chat.title}</span>
             <button
               onClick={() => setIsOpen(false)}
               className="text-muted-foreground hover:text-ivory transition-colors"
@@ -77,13 +80,13 @@ export function ChatWidget() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyPress={handleKeyPress}
-              placeholder="Type your message..."
+              placeholder={t.chat.placeholder}
               className="flex-1 bg-background border border-border rounded-full px-4 py-2 text-sm text-ivory placeholder:text-muted-foreground focus:outline-none focus:border-rose-gold transition-colors"
             />
             <button
               onClick={handleSend}
               className="bg-primary text-primary-foreground rounded-full p-2 w-10 h-10 flex items-center justify-center hover:opacity-90 transition-opacity shrink-0"
-              aria-label="Send message"
+              aria-label={t.chat.send}
             >
               <Send size={16} />
             </button>

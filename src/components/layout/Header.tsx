@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { useCart } from "@/context/CartContext";
 
 export function Logo() {
   return (
@@ -20,6 +21,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const { totalItems } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -85,9 +87,11 @@ export function Header() {
               aria-label={t.header.viewCart}
             >
               <ShoppingCart size={20} />
-              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-primary text-primary-foreground text-[9px] flex items-center justify-center font-bold">
-                2
-              </span>
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-primary text-primary-foreground text-[9px] flex items-center justify-center font-bold">
+                  {totalItems}
+                </span>
+              )}
             </Link>
             <a
               href="/#products"

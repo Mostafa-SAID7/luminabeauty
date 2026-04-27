@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { BEFORE_AFTER_DATA } from "@/constants";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export function BeforeAfter() {
+  const { t } = useLanguage();
   const [pos, setPos] = useState(50);
   const [dragging, setDragging] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -26,16 +28,16 @@ export function BeforeAfter() {
       className="relative py-20 md:py-32 px-5 sm:px-6 lg:px-10 max-w-6xl mx-auto"
     >
       <Reveal className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
-        <span className="text-[10px] uppercase tracking-[0.4em] text-rose-gold">Real Results</span>
+        <span className="text-[10px] uppercase tracking-[0.4em] text-rose-gold">{t.beforeAfter.badge}</span>
         <h2
           className="mt-4 font-display text-ivory"
           style={{ fontSize: "clamp(2.25rem, 6vw, 4rem)" }}
         >
-          {BEFORE_AFTER_DATA.title}{" "}
-          <em className="shimmer-text not-italic italic font-light">{BEFORE_AFTER_DATA.titleEm}</em>
+          {t.beforeAfter.title}{" "}
+          <em className="shimmer-text not-italic italic font-light">{t.beforeAfter.titleEm}</em>
         </h2>
         <p className="mt-5 md:mt-6 text-sm md:text-base text-muted-foreground">
-          {BEFORE_AFTER_DATA.desc}
+          {t.beforeAfter.desc}
         </p>
       </Reveal>
       <Reveal variant="scale">
@@ -82,10 +84,10 @@ export function BeforeAfter() {
             Drag to Compare
           </span>
           <span className="absolute bottom-6 left-6 text-[10px] uppercase tracking-[0.3em] glass-card rounded-full px-4 py-2 text-ivory pointer-events-none">
-            {BEFORE_AFTER_DATA.labelBefore}
+            {t.beforeAfter.before}
           </span>
           <span className="absolute bottom-6 right-6 text-[10px] uppercase tracking-[0.3em] bg-primary text-primary-foreground rounded-full px-4 py-2 pointer-events-none">
-            {BEFORE_AFTER_DATA.labelAfter}
+            {t.beforeAfter.after}
           </span>
           <div
             className="absolute top-0 bottom-0 w-px bg-ivory/80 pointer-events-none"
@@ -109,7 +111,7 @@ export function BeforeAfter() {
         </div>
       </Reveal>
       <p className="mt-6 text-center text-xs uppercase tracking-[0.3em] text-muted-foreground">
-        {BEFORE_AFTER_DATA.product}
+        {t.beforeAfter.product}
       </p>
     </section>
   );

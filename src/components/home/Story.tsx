@@ -1,8 +1,10 @@
 import { Reveal } from "@/components/Reveal";
 import { SmartImage } from "@/components/SmartImage";
 import { STORY_DATA } from "@/constants";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export function Story() {
+  const { t } = useLanguage();
   return (
     <section
       id="about"
@@ -31,36 +33,50 @@ export function Story() {
           </div>
           <div className="absolute -bottom-8 -right-8 hidden md:block max-w-xs glass-card rounded-2xl p-6 rose-gold-glow">
             <p className="font-display italic text-lg leading-snug text-ivory">
-              {STORY_DATA.quote}
+              {t.story.quote}
             </p>
           </div>
         </Reveal>
         <Reveal variant="right" delay={150} className="lg:col-span-7">
           <span className="text-[10px] uppercase tracking-[0.5em] text-rose-gold font-bold">
-            Our Story
+            {t.story.badge}
           </span>
           <h2
             className="mt-5 font-display text-balance leading-[0.95] text-ivory font-light"
             style={{ fontSize: "clamp(2.25rem, 6vw, 5rem)" }}
           >
-            {STORY_DATA.title}
+            {t.story.title}
             <br />
-            {STORY_DATA.titleBr}
+            {t.story.titleBr}
           </h2>
           <p className="mt-8 text-muted-foreground leading-relaxed max-w-xl font-light">
-            {STORY_DATA.desc}
+            {t.story.desc}
           </p>
           <div className="mt-10 md:mt-12 grid grid-cols-3 gap-4 sm:gap-6 border-t border-border pt-8 md:pt-10">
-            {STORY_DATA.stats.map(([n, l]) => (
-              <div key={l}>
-                <div className="font-display text-2xl sm:text-3xl md:text-4xl font-light text-rose-gold">
-                  {n}
-                </div>
-                <div className="mt-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                  {l}
-                </div>
+            <div>
+              <div className="font-display text-2xl sm:text-3xl md:text-4xl font-light text-rose-gold">
+                {STORY_DATA.stats[0][0]}
               </div>
-            ))}
+              <div className="mt-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                {t.story.stats.years}
+              </div>
+            </div>
+            <div>
+              <div className="font-display text-2xl sm:text-3xl md:text-4xl font-light text-rose-gold">
+                {STORY_DATA.stats[1][0]}
+              </div>
+              <div className="mt-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                {t.story.stats.satisfaction}
+              </div>
+            </div>
+            <div>
+              <div className="font-display text-2xl sm:text-3xl md:text-4xl font-light text-rose-gold">
+                {STORY_DATA.stats[2][0]}
+              </div>
+              <div className="mt-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                {t.story.stats.natural}
+              </div>
+            </div>
           </div>
         </Reveal>
       </div>
