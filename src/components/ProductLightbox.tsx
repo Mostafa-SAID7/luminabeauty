@@ -42,7 +42,7 @@ export function ProductLightbox({ product, onClose }: ProductLightboxProps) {
   };
 
   return createPortal(
-    <div 
+    <div
       className="fixed inset-0 z-[10005] flex items-center justify-center p-0 md:p-6"
       role="dialog"
       aria-modal="true"
@@ -93,10 +93,13 @@ export function ProductLightbox({ product, onClose }: ProductLightboxProps) {
               <span className="text-[10px] uppercase tracking-[0.4em] text-rose-gold font-bold">
                 {product.category}
               </span>
-              <h2 id="product-title" className="mt-4 font-display text-3xl md:text-5xl text-ivory leading-tight">
+              <h2
+                id="product-title"
+                className="mt-4 font-display text-3xl md:text-5xl text-ivory leading-tight"
+              >
                 {product.name}
               </h2>
-              
+
               {/* Ratings and Reviews */}
               <div className="mt-4 flex items-center gap-4">
                 <div className="flex text-rose-gold">
@@ -104,11 +107,14 @@ export function ProductLightbox({ product, onClose }: ProductLightboxProps) {
                     <Star key={i} size={16} fill={i < 4 ? "currentColor" : "none"} />
                   ))}
                 </div>
-                <span className="text-xs text-muted-foreground uppercase tracking-widest">(4.8 / 5.0)</span>
+                <span className="text-xs text-muted-foreground uppercase tracking-widest">
+                  (4.8 / 5.0)
+                </span>
               </div>
 
               <p className="mt-6 text-muted-foreground leading-relaxed">
-                {product.desc}. Designed with clean, high-performance ingredients to deliver visible results while maintaining your skin's natural balance.
+                {product.desc}. Designed with clean, high-performance ingredients to deliver visible
+                results while maintaining your skin's natural balance.
               </p>
 
               <ul className="mt-8 space-y-4 text-sm text-muted-foreground">
@@ -116,19 +122,25 @@ export function ProductLightbox({ product, onClose }: ProductLightboxProps) {
                   <div className="w-8 h-8 rounded-full bg-surface-2 border border-border flex items-center justify-center text-rose-gold">
                     <Shield size={16} />
                   </div>
-                  <span className="text-xs uppercase tracking-widest font-medium">Dermatologically Tested</span>
+                  <span className="text-xs uppercase tracking-widest font-medium">
+                    Dermatologically Tested
+                  </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-surface-2 border border-border flex items-center justify-center text-rose-gold">
                     <RotateCcw size={16} />
                   </div>
-                  <span className="text-xs uppercase tracking-widest font-medium">100% Vegan & Cruelty-Free</span>
+                  <span className="text-xs uppercase tracking-widest font-medium">
+                    100% Vegan & Cruelty-Free
+                  </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-surface-2 border border-border flex items-center justify-center text-rose-gold">
                     <Truck size={16} />
                   </div>
-                  <span className="text-xs uppercase tracking-widest font-medium">Free Global Shipping</span>
+                  <span className="text-xs uppercase tracking-widest font-medium">
+                    Free Global Shipping
+                  </span>
                 </li>
               </ul>
             </div>
@@ -155,6 +167,6 @@ export function ProductLightbox({ product, onClose }: ProductLightboxProps) {
         </div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

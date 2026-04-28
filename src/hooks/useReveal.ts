@@ -20,7 +20,7 @@ function getSharedObserver(threshold: number, rootMargin: string): IntersectionO
           }
         });
       },
-      { threshold, rootMargin }
+      { threshold, rootMargin },
     );
     observerCache.set(key, { observer, count: 0 });
   }

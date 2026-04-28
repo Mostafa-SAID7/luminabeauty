@@ -41,7 +41,7 @@ function NotFoundPage() {
       <div className="relative z-10 max-w-2xl text-center">
         {/* 404 Number with animation */}
         <div className="animate-scale-in">
-          <h1 
+          <h1
             className="text-[12rem] md:text-[20rem] font-bold leading-none text-transparent bg-clip-text bg-gradient-to-br from-rose-gold via-champagne to-ivory opacity-20 select-none"
             style={{ filter: "drop-shadow(0 0 30px rgba(232, 180, 184, 0.3))" }}
           >

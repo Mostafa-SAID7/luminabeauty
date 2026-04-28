@@ -1,4 +1,12 @@
-import { createContext, useContext, useState, useEffect, useMemo, useCallback, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  type ReactNode,
+} from "react";
 import type { CartItem } from "@/models";
 import { toast } from "sonner";
 
@@ -42,44 +50,47 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [items]);
 
   // Memoised derived values — only recompute when items array changes
-  const totalItems = useMemo(
-    () => items.reduce((sum, item) => sum + item.qty, 0),
-    [items]
-  );
+  const totalItems = useMemo(() => items.reduce((sum, item) => sum + item.qty, 0), [items]);
 
   const subtotal = useMemo(
     () => items.reduce((sum, item) => sum + item.price * item.qty, 0),
-    [items]
+    [items],
   );
 
-  const addToCart = useCallback((item: Omit<CartItem, "qty">) => {
-    setLastAddedItem(item);
-    const existing = items.find((i) => i.id === item.id);
-    if (existing) {
-      toast.success(`Updated ${item.name} quantity`, {
-        description: "Your cart has been updated.",
-      });
-    } else {
-      toast.success(`${item.name} added to cart`, {
-        description: "Ready to enhance your beauty?",
-      });
-    }
-
-    setItems((prev) => {
-      const existingInPrev = prev.find((i) => i.id === item.id);
-      if (existingInPrev) {
-        return prev.map((i) => (i.id === item.id ? { ...i, qty: i.qty + 1 } : i));
+  const addToCart = useCallback(
+    (item: Omit<CartItem, "qty">) => {
+      setLastAddedItem(item);
+      const existing = items.find((i) => i.id === item.id);
+      if (existing) {
+        toast.success(`Updated ${item.name} quantity`, {
+          description: "Your cart has been updated.",
+        });
+      } else {
+        toast.success(`${item.name} added to cart`, {
+          description: "Ready to enhance your beauty?",
+        });
       }
-      return [...prev, { ...item, qty: 1 }];
-    });
-  }, [items]);
 
-  const removeFromCart = useCallback((id: string) => {
-    const item = items.find((i) => i.id === id);
-    if (item) toast.info(`${item.name} removed from cart`);
+      setItems((prev) => {
+        const existingInPrev = prev.find((i) => i.id === item.id);
+        if (existingInPrev) {
+          return prev.map((i) => (i.id === item.id ? { ...i, qty: i.qty + 1 } : i));
+        }
+        return [...prev, { ...item, qty: 1 }];
+      });
+    },
+    [items],
+  );
 
-    setItems((prev) => prev.filter((i) => i.id !== id));
-  }, [items]);
+  const removeFromCart = useCallback(
+    (id: string) => {
+      const item = items.find((i) => i.id === id);
+      if (item) toast.info(`${item.name} removed from cart`);
+
+      setItems((prev) => prev.filter((i) => i.id !== id));
+    },
+    [items],
+  );
 
   const updateQuantity = useCallback(
     (id: string, qty: number) => {
@@ -89,7 +100,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
       setItems((prev) => prev.map((i) => (i.id === id ? { ...i, qty } : i)));
     },
-    [removeFromCart]
+    [removeFromCart],
   );
 
   const clearCart = useCallback(() => {
@@ -118,6 +129,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useCart() {
   const context = useContext(CartContext);
   if (!context) {

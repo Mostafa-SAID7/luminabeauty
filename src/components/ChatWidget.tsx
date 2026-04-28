@@ -58,10 +58,10 @@ export function ChatWidget() {
         ([entry]) => {
           setIsVisible(!entry.isIntersecting);
         },
-        { 
+        {
           threshold: 0.1,
-          rootMargin: "0px 0px 50px 0px"
-        }
+          rootMargin: "0px 0px 50px 0px",
+        },
       );
 
       const footer = document.querySelector("footer");
@@ -80,7 +80,7 @@ export function ChatWidget() {
   }, [pathname]);
 
   return (
-    <div 
+    <div
       className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[10001] transition-all duration-500 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
       }`}
@@ -88,7 +88,9 @@ export function ChatWidget() {
       {isOpen ? (
         <div className="bg-surface-2 border border-border rounded-2xl w-[calc(100vw-2rem)] max-w-sm sm:w-80 shadow-2xl overflow-hidden flex flex-col mb-4 animate-slide-in-bottom">
           <div className="bg-surface p-4 border-b border-border flex justify-between items-center">
-            <span className="font-display font-bold text-ivory text-base sm:text-lg tracking-wider">{t.chat.title}</span>
+            <span className="font-display font-bold text-ivory text-base sm:text-lg tracking-wider">
+              {t.chat.title}
+            </span>
             <button
               onClick={() => setIsOpen(false)}
               className="text-muted-foreground hover:text-ivory transition-all duration-300 hover:rotate-90"
@@ -108,8 +110,8 @@ export function ChatWidget() {
                 }`}
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
-                {msg.sender === "bot" 
-                  ? (t.chat[msg.text as keyof typeof t.chat] || msg.text) 
+                {msg.sender === "bot"
+                  ? t.chat[msg.text as keyof typeof t.chat] || msg.text
                   : msg.text}
               </div>
             ))}

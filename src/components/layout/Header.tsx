@@ -14,9 +14,7 @@ export function Logo() {
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="text-rose-gold">
         <path d="M12 2c1 4 4 7 8 8-4 1-7 4-8 8-1-4-4-7-8-8 4-1 7-4 8-8z" fill="currentColor" />
       </svg>
-      <span className="font-display text-2xl tracking-tight text-ivory">
-        Lumina
-      </span>
+      <span className="font-display text-2xl tracking-tight text-ivory">Lumina</span>
     </Link>
   );
 }
@@ -24,10 +22,7 @@ export function Logo() {
 /** Hoisted outside Header to prevent component-type recreation on every render */
 function NavLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <a
-      href={href}
-      className="hover:text-ivory transition-colors relative text-muted-foreground"
-    >
+    <a href={href} className="hover:text-ivory transition-colors relative text-muted-foreground">
       {children}
     </a>
   );
@@ -63,8 +58,6 @@ export function Header() {
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "ar" : "en");
   };
-
-
 
   return (
     <>
@@ -133,79 +126,80 @@ export function Header() {
       </header>
 
       {/* Mobile Menu Overlay */}
-      {mobileMenuOpen && createPortal(
-        <div
-          className="fixed inset-0 bg-background/95 backdrop-blur-lg z-[10020] md:hidden animate-fade-in"
-          onClick={closeMenu}
-        >
-          {/* Close Button Inside Menu */}
-          <button
+      {mobileMenuOpen &&
+        createPortal(
+          <div
+            className="fixed inset-0 bg-background/95 backdrop-blur-lg z-[10020] md:hidden animate-fade-in"
             onClick={closeMenu}
-            className="absolute top-6 right-6 p-2 text-muted-foreground hover:text-ivory transition-all hover:rotate-90 group"
-            aria-label="Close menu"
           >
-            <X size={32} />
-          </button>
-
-          <nav
-            className="flex flex-col items-center justify-center h-full gap-8 text-lg uppercase tracking-[0.2em] animate-slide-in-top"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <a
-              href="/#products"
-              onClick={closeMenu}
-              className="text-muted-foreground hover:text-ivory transition-all duration-300 hover:scale-110"
-            >
-              {t.header.products}
-            </a>
-            <a
-              href="/#about"
-              onClick={closeMenu}
-              className="text-muted-foreground hover:text-ivory transition-all duration-300 hover:scale-110"
-            >
-              {t.header.about}
-            </a>
-            <a
-              href="/#results"
-              onClick={closeMenu}
-              className="text-muted-foreground hover:text-ivory transition-all duration-300 hover:scale-110"
-            >
-              {t.header.results}
-            </a>
-            <a
-              href="/#newsletter"
-              onClick={closeMenu}
-              className="text-muted-foreground hover:text-ivory transition-all duration-300 hover:scale-110"
-            >
-              {t.header.contact}
-            </a>
-            {/* Mobile Language Toggle */}
+            {/* Close Button Inside Menu */}
             <button
-              onClick={() => {
-                toggleLanguage();
-                closeMenu();
-              }}
-              className="flex items-center gap-2 text-sm tracking-widest border border-border rounded-full px-4 py-2 text-muted-foreground mt-4 hover:border-rose-gold transition-all duration-300 hover:scale-105"
-            >
-              <span className={`transition-colors ${language === "en" ? "text-ivory" : ""}`}>
-                EN
-              </span>
-              <span>|</span>
-              <span className={`transition-colors ${language === "ar" ? "text-ivory" : ""}`}>
-                AR
-              </span>
-            </button>
-            <a
-              href="/#products"
               onClick={closeMenu}
-              className="shine-btn bg-primary text-primary-foreground text-xs uppercase tracking-[0.2em] rounded-full px-8 py-4 hover:opacity-90 transition-all duration-300 rose-gold-glow mt-4 hover:scale-105"
+              className="absolute top-6 right-6 p-2 text-muted-foreground hover:text-ivory transition-all hover:rotate-90 group"
+              aria-label="Close menu"
             >
-              {t.header.shopNow}
-            </a>
-          </nav>
-        </div>,
-        document.body
-      )}
+              <X size={32} />
+            </button>
+
+            <nav
+              className="flex flex-col items-center justify-center h-full gap-8 text-lg uppercase tracking-[0.2em] animate-slide-in-top"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <a
+                href="/#products"
+                onClick={closeMenu}
+                className="text-muted-foreground hover:text-ivory transition-all duration-300 hover:scale-110"
+              >
+                {t.header.products}
+              </a>
+              <a
+                href="/#about"
+                onClick={closeMenu}
+                className="text-muted-foreground hover:text-ivory transition-all duration-300 hover:scale-110"
+              >
+                {t.header.about}
+              </a>
+              <a
+                href="/#results"
+                onClick={closeMenu}
+                className="text-muted-foreground hover:text-ivory transition-all duration-300 hover:scale-110"
+              >
+                {t.header.results}
+              </a>
+              <a
+                href="/#newsletter"
+                onClick={closeMenu}
+                className="text-muted-foreground hover:text-ivory transition-all duration-300 hover:scale-110"
+              >
+                {t.header.contact}
+              </a>
+              {/* Mobile Language Toggle */}
+              <button
+                onClick={() => {
+                  toggleLanguage();
+                  closeMenu();
+                }}
+                className="flex items-center gap-2 text-sm tracking-widest border border-border rounded-full px-4 py-2 text-muted-foreground mt-4 hover:border-rose-gold transition-all duration-300 hover:scale-105"
+              >
+                <span className={`transition-colors ${language === "en" ? "text-ivory" : ""}`}>
+                  EN
+                </span>
+                <span>|</span>
+                <span className={`transition-colors ${language === "ar" ? "text-ivory" : ""}`}>
+                  AR
+                </span>
+              </button>
+              <a
+                href="/#products"
+                onClick={closeMenu}
+                className="shine-btn bg-primary text-primary-foreground text-xs uppercase tracking-[0.2em] rounded-full px-8 py-4 hover:opacity-90 transition-all duration-300 rose-gold-glow mt-4 hover:scale-105"
+              >
+                {t.header.shopNow}
+              </a>
+            </nav>
+          </div>,
+          document.body,
+        )}
 
       {/* Cart Sidebar */}
       <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />

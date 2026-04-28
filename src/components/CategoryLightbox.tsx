@@ -40,7 +40,7 @@ export function CategoryLightbox({
   const allProducts = useMemo(() => {
     // Filter products by category
     const categoryProducts = PRODUCTS.filter((p) => p.category === category);
-    
+
     // Use the first product as a fallback template if this category has no real products yet
     const templateSource = categoryProducts.length > 0 ? categoryProducts : [PRODUCTS[0]];
 
@@ -52,7 +52,7 @@ export function CategoryLightbox({
         ...template,
         name: `${category} Item ${products.length + 1}`,
         category: category,
-        slug: `${template.slug}-${category.toLowerCase().replace(/\s+/g, '-')}-${products.length}`,
+        slug: `${template.slug}-${category.toLowerCase().replace(/\s+/g, "-")}-${products.length}`,
       });
     }
     return products;
@@ -77,7 +77,7 @@ export function CategoryLightbox({
   };
 
   return createPortal(
-    <div 
+    <div
       className="fixed inset-0 z-[10005] flex items-center justify-center p-0 md:p-6"
       role="dialog"
       aria-modal="true"
@@ -120,7 +120,10 @@ export function CategoryLightbox({
               <span className="text-[10px] uppercase tracking-[0.4em] text-rose-gold font-bold">
                 {productCount} {t.categories.products}
               </span>
-              <h2 id="category-title" className="mt-2 font-display text-4xl md:text-6xl text-ivory leading-tight">
+              <h2
+                id="category-title"
+                className="mt-2 font-display text-4xl md:text-6xl text-ivory leading-tight"
+              >
                 {categoryNames[category] || category}
               </h2>
             </div>
@@ -229,9 +232,7 @@ export function CategoryLightbox({
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-display text-lg text-ivory truncate">
-                      {product.name}
-                    </h3>
+                    <h3 className="font-display text-lg text-ivory truncate">{product.name}</h3>
                     <p className="text-xs text-muted-foreground mt-2 line-clamp-2 leading-relaxed">
                       {product.desc}
                     </p>
@@ -261,6 +262,6 @@ export function CategoryLightbox({
         </div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

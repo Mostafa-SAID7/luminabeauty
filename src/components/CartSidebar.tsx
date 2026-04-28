@@ -1,6 +1,17 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { X, ShoppingCart, Plus, Minus, Trash2, ArrowRight, CreditCard, CheckCircle, ArrowLeft, Shield } from "lucide-react";
+import {
+  X,
+  ShoppingCart,
+  Plus,
+  Minus,
+  Trash2,
+  ArrowRight,
+  CreditCard,
+  CheckCircle,
+  ArrowLeft,
+  Shield,
+} from "lucide-react";
 import { SmartImage } from "./SmartImage";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -28,6 +39,14 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
   // Scroll lock via shared counter hook — safe with other open modals
   useScrollLock(isOpen);
 
+  const handleClose = useCallback(() => {
+    if (currentStep === "confirmation") {
+      clearCart();
+      setCurrentStep("cart");
+    }
+    onClose();
+  }, [currentStep, clearCart, onClose]);
+
   useEffect(() => {
     if (!isOpen) return;
     if (sidebarRef.current) sidebarRef.current.focus();
@@ -36,15 +55,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
-  }, [isOpen]);
-
-  const handleClose = () => {
-    if (currentStep === "confirmation") {
-      clearCart();
-      setCurrentStep("cart");
-    }
-    onClose();
-  };
+  }, [isOpen, handleClose]);
 
   if (!isOpen || !mounted) return null;
 
@@ -55,7 +66,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
   };
 
   return createPortal(
-    <div 
+    <div
       className="fixed inset-0 z-[10010]"
       role="dialog"
       aria-modal="true"
@@ -68,7 +79,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
       />
 
       {/* Sidebar */}
-      <div 
+      <div
         ref={sidebarRef}
         tabIndex={-1}
         className="absolute top-0 right-0 h-[100dvh] w-full max-w-md bg-surface border-l border-border flex flex-col shadow-2xl animate-slide-in-right focus:outline-none"
@@ -79,7 +90,9 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
             {currentStep === "cart" && (
               <>
                 <ShoppingCart size={24} className="text-rose-gold" />
-                <h2 id="cart-title" className="font-display text-2xl text-ivory">{t.cart.title}</h2>
+                <h2 id="cart-title" className="font-display text-2xl text-ivory">
+                  {t.cart.title}
+                </h2>
                 {totalItems > 0 && (
                   <span className="bg-primary text-primary-foreground text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center animate-scale-in">
                     {totalItems}
@@ -89,19 +102,26 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
             )}
             {currentStep === "payment" && (
               <>
-                <button 
-                  onClick={() => setCurrentStep("cart")} 
+                <button
+                  onClick={() => setCurrentStep("cart")}
                   className="p-1 -ml-1 text-muted-foreground hover:text-ivory transition-colors group"
                 >
-                  <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
+                  <ArrowLeft
+                    size={20}
+                    className="group-hover:-translate-x-1 transition-transform"
+                  />
                 </button>
-                <h2 id="cart-title" className="font-display text-2xl text-ivory">Payment</h2>
+                <h2 id="cart-title" className="font-display text-2xl text-ivory">
+                  Payment
+                </h2>
               </>
             )}
             {currentStep === "confirmation" && (
               <>
                 <CheckCircle size={24} className="text-primary" />
-                <h2 id="cart-title" className="font-display text-2xl text-ivory">Order Confirmed</h2>
+                <h2 id="cart-title" className="font-display text-2xl text-ivory">
+                  Order Confirmed
+                </h2>
               </>
             )}
           </div>
@@ -127,7 +147,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                   <p className="text-sm text-muted-foreground mt-2 max-w-[200px]">
                     Discover our collection and find your perfect match
                   </p>
-                  <button 
+                  <button
                     onClick={handleClose}
                     className="mt-8 text-xs uppercase tracking-[0.2em] text-rose-gold hover:text-ivory transition-colors"
                   >
@@ -156,7 +176,9 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                           <h3 className="font-display text-base text-ivory line-clamp-1 group-hover:text-rose-gold transition-colors">
                             {item.name}
                           </h3>
-                          <p className="text-[10px] uppercase tracking-widest text-muted-foreground mt-1">{item.category}</p>
+                          <p className="text-[10px] uppercase tracking-widest text-muted-foreground mt-1">
+                            {item.category}
+                          </p>
                           <div className="flex items-center justify-between mt-3">
                             <div className="flex items-center gap-2">
                               <button
@@ -165,7 +187,9 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                               >
                                 <Minus size={10} />
                               </button>
-                              <span className="text-ivory w-6 text-center text-sm font-medium">{item.qty}</span>
+                              <span className="text-ivory w-6 text-center text-sm font-medium">
+                                {item.qty}
+                              </span>
                               <button
                                 onClick={() => updateQuantity(item.id, item.qty + 1)}
                                 className="w-7 h-7 rounded-full bg-surface border border-border hover:border-rose-gold transition-colors flex items-center justify-center text-muted-foreground hover:text-ivory"
@@ -231,7 +255,9 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] uppercase tracking-widest text-muted-foreground mb-2">CVV</label>
+                      <label className="block text-[10px] uppercase tracking-widest text-muted-foreground mb-2">
+                        CVV
+                      </label>
                       <input
                         type="password"
                         placeholder="•••"
@@ -251,11 +277,12 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                   </div>
                 </div>
               </div>
-              
+
               <div className="p-4 bg-primary/5 rounded-xl border border-primary/10 flex gap-3">
                 <Shield size={18} className="text-primary shrink-0" />
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Your payment is secured with 256-bit SSL encryption. We do not store your credit card details.
+                  Your payment is secured with 256-bit SSL encryption. We do not store your credit
+                  card details.
                 </p>
               </div>
             </div>
@@ -274,7 +301,9 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                 Your luxury items are being prepared. A confirmation has been sent to your email.
               </p>
               <div className="bg-background border border-border rounded-2xl p-8 mb-10 w-full shadow-inner">
-                <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-3">Order Number</p>
+                <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-3">
+                  Order Number
+                </p>
                 <p className="font-display text-3xl text-champagne tracking-wider">{orderNumber}</p>
               </div>
               <button
@@ -292,24 +321,34 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
           <div className="border-t border-border p-8 space-y-6 bg-surface-2 shrink-0">
             <div className="space-y-3">
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground uppercase tracking-wider text-[10px]">Subtotal</span>
+                <span className="text-muted-foreground uppercase tracking-wider text-[10px]">
+                  Subtotal
+                </span>
                 <span className="text-ivory font-medium">${subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground uppercase tracking-wider text-[10px]">Shipping</span>
-                <span className="text-rose-gold font-bold uppercase text-[10px] tracking-widest">Complimentary</span>
+                <span className="text-muted-foreground uppercase tracking-wider text-[10px]">
+                  Shipping
+                </span>
+                <span className="text-rose-gold font-bold uppercase text-[10px] tracking-widest">
+                  Complimentary
+                </span>
               </div>
               <div className="pt-4 border-t border-border/50 flex justify-between items-end">
                 <div>
-                  <span className="block text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Total Amount</span>
+                  <span className="block text-[10px] uppercase tracking-widest text-muted-foreground mb-1">
+                    Total Amount
+                  </span>
                   <span className="font-display text-3xl text-ivory tracking-tight">
                     ${subtotal.toFixed(2)}
                   </span>
                 </div>
-                <span className="text-champagne/50 text-[10px] uppercase tracking-widest pb-1">VAT Included</span>
+                <span className="text-champagne/50 text-[10px] uppercase tracking-widest pb-1">
+                  VAT Included
+                </span>
               </div>
             </div>
-            
+
             {currentStep === "cart" ? (
               <button
                 onClick={() => setCurrentStep("payment")}
@@ -331,6 +370,6 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
         )}
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

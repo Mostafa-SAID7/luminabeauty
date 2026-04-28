@@ -3,8 +3,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 
 // Respect reduced-motion preference once at module level
 const prefersReducedMotion =
-  typeof window !== "undefined" &&
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // Reduced from 14 → 6 particles to ease GPU compositing layer pressure
 const PARTICLE_COUNT = 6;

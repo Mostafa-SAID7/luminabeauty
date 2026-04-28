@@ -19,11 +19,8 @@ export function CartAddedFeedback() {
   const lastItemKeyRef = useRef<string | null>(null);
 
   // Compute a stable key for the most-recently-added item
-  const displayItem =
-    lastAddedItem ?? (items.length > 0 ? items[items.length - 1] : null);
-  const currentKey = displayItem
-    ? `${displayItem.id}-${totalItems}`
-    : null;
+  const displayItem = lastAddedItem ?? (items.length > 0 ? items[items.length - 1] : null);
+  const currentKey = displayItem ? `${displayItem.id}-${totalItems}` : null;
 
   // Re-show the card whenever a brand-new item/quantity change arrives
   useEffect(() => {
@@ -45,7 +42,6 @@ export function CartAddedFeedback() {
   return createPortal(
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999] w-[calc(100%-2rem)] max-w-sm animate-fade-in">
       <div className="bg-surface border border-border rounded-2xl p-4 shadow-[0_8px_40px_rgba(0,0,0,0.55)] flex gap-4 items-center relative">
-
         {/* Close (X) button */}
         <button
           onClick={() => setDismissed(true)}
@@ -94,9 +90,8 @@ export function CartAddedFeedback() {
           </div>
           <span>Cart</span>
         </button>
-
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

@@ -37,9 +37,9 @@ export function Footer() {
             <span className="w-px h-3 bg-border/50" />
             <p>
               By{" "}
-              <a 
-                href="https://m-said-portfolio.netlify.app" 
-                target="_blank" 
+              <a
+                href="https://m-said-portfolio.netlify.app"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-rose-gold hover:text-champagne transition-colors duration-300 underline underline-offset-4 decoration-rose-gold/20 hover:decoration-rose-gold"
               >
