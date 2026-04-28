@@ -617,3 +617,19 @@ body {
     transform: translateY(0) scale(1);
   }
 }
+
+/* Animated Border for Toaster */
+@keyframes border-glow {
+  0%, 100% { 
+    border-color: rgba(232, 180, 184, 0.2); 
+    box-shadow: 0 0 10px rgba(232, 180, 184, 0.1); 
+  }
+  50% { 
+    border-color: rgba(232, 180, 184, 0.6); 
+    box-shadow: 0 0 20px rgba(232, 180, 184, 0.3); 
+  }
+}
+
+.animate-border-glow {
+  animation: border-glow 3s ease-in-out infinite;
+}
