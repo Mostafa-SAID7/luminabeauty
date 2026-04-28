@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { SmartImage } from "@/components/SmartImage";
-import { ProductLightbox } from "@/components/ProductLightbox";
+import { lazy, Suspense } from "react";
+const ProductLightbox = lazy(() => import("../ProductLightbox").then(m => ({ default: m.ProductLightbox })));
 import { PRODUCTS } from "@/constants";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -27,7 +28,7 @@ export function Products() {
     <>
       <section
         id="products"
-        className="relative py-24 md:py-40 px-5 sm:px-6 lg:px-10 max-w-7xl mx-auto"
+        className="relative py-12 md:py-20 px-5 sm:px-6 lg:px-10 max-w-7xl mx-auto"
       >
         <Reveal className="text-center max-w-2xl mx-auto mb-14 md:mb-20">
           <span className="text-[10px] uppercase tracking-[0.4em] text-rose-gold">
@@ -106,7 +107,9 @@ export function Products() {
       </section>
 
       {selectedProduct && (
-        <ProductLightbox product={selectedProduct} onClose={() => setSelectedProduct(null)} />
+        <Suspense fallback={null}>
+          <ProductLightbox product={selectedProduct} onClose={() => setSelectedProduct(null)} />
+        </Suspense>
       )}
     </>
   );

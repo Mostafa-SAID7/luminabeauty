@@ -22,7 +22,7 @@ export function Footer() {
   const { t } = useLanguage();
 
   return (
-    <footer className="border-t border-border mt-20 py-12 px-6 lg:px-10">
+    <footer className="border-t border-border mt-12 py-12 px-6 lg:px-10">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-row items-center justify-between gap-4 overflow-x-auto no-scrollbar py-2">
           {/* Logo Section */}

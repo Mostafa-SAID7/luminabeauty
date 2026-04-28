@@ -38,7 +38,7 @@ export function BeforeAfter() {
   return (
     <section
       id="results"
-      className="relative py-24 md:py-40 px-5 sm:px-6 lg:px-10 max-w-6xl mx-auto"
+      className="relative py-12 md:py-20 px-5 sm:px-6 lg:px-10 max-w-6xl mx-auto"
     >
       <Reveal className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
         <span className="text-[10px] uppercase tracking-[0.4em] text-rose-gold">

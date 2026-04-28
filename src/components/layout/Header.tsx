@@ -5,7 +5,8 @@ import { Link, useLocation } from "react-router-dom";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useCart } from "@/context/CartContext";
-import { CartSidebar } from "../CartSidebar";
+import { lazy, Suspense } from "react";
+const CartSidebar = lazy(() => import("../CartSidebar").then(module => ({ default: module.CartSidebar })));
 import { useScrollLock } from "@/hooks/useScrollLock";
 
 export function Logo() {
@@ -202,7 +203,9 @@ export function Header() {
         )}
 
       {/* Cart Sidebar */}
-      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <Suspense fallback={null}>
+        <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      </Suspense>
     </>
   );
 }

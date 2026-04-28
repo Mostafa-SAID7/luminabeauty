@@ -11,7 +11,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon.svg", "robots.txt", "apple-touch-icon.png"],
+      includeAssets: ["favicon.svg", "robots.txt"],
       manifest: {
         name: "Lumina Beauty",
         short_name: "Lumina",
@@ -50,6 +50,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ["react", "react-dom", "react-router-dom"],
+          icons: ["lucide-react"],
         },
       },
     },

@@ -21,7 +21,7 @@ export function Differences() {
   ];
 
   return (
-    <section className="relative py-24 md:py-40 px-5 sm:px-6 lg:px-10 max-w-7xl mx-auto">
+    <section className="relative py-12 md:py-20 px-5 sm:px-6 lg:px-10 max-w-7xl mx-auto">
       <Reveal className="text-center max-w-3xl mx-auto mb-14 md:mb-20">
         <span className="text-[10px] uppercase tracking-[0.4em] text-rose-gold">
           {t.differences.badge}

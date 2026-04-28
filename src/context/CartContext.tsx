@@ -57,40 +57,32 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [items],
   );
 
-  const addToCart = useCallback(
-    (item: Omit<CartItem, "qty">) => {
-      setLastAddedItem(item);
-      const existing = items.find((i) => i.id === item.id);
+  const addToCart = useCallback((item: Omit<CartItem, "qty">) => {
+    setLastAddedItem(item);
+
+    setItems((prev) => {
+      const existing = prev.find((i) => i.id === item.id);
       if (existing) {
         toast.success(`Updated ${item.name} quantity`, {
           description: "Your cart has been updated.",
         });
+        return prev.map((i) => (i.id === item.id ? { ...i, qty: i.qty + 1 } : i));
       } else {
         toast.success(`${item.name} added to cart`, {
           description: "Ready to enhance your beauty?",
         });
-      }
-
-      setItems((prev) => {
-        const existingInPrev = prev.find((i) => i.id === item.id);
-        if (existingInPrev) {
-          return prev.map((i) => (i.id === item.id ? { ...i, qty: i.qty + 1 } : i));
-        }
         return [...prev, { ...item, qty: 1 }];
-      });
-    },
-    [items],
-  );
+      }
+    });
+  }, []);
 
-  const removeFromCart = useCallback(
-    (id: string) => {
-      const item = items.find((i) => i.id === id);
+  const removeFromCart = useCallback((id: string) => {
+    setItems((prev) => {
+      const item = prev.find((i) => i.id === id);
       if (item) toast.info(`${item.name} removed from cart`);
-
-      setItems((prev) => prev.filter((i) => i.id !== id));
-    },
-    [items],
-  );
+      return prev.filter((i) => i.id !== id);
+    });
+  }, []);
 
   const updateQuantity = useCallback(
     (id: string, qty: number) => {

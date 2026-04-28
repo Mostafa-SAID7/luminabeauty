@@ -1,12 +1,36 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import { CartProvider } from "./context/CartContext";
 import { ChatWidget } from "./components/ChatWidget";
 import { CartAddedFeedback } from "./components/CartAddedFeedback";
 import { Toaster } from "@/components/ui/sonner";
-import HomePage from "./pages/HomePage";
-import NotFoundPage from "./pages/NotFoundPage";
+
+const HomePage = lazy(() => import("./pages/HomePage"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
+
+function LoadingScreen() {
+  return (
+    <div className="fixed inset-0 z-[10002] bg-background flex items-center justify-center">
+      <div className="flex flex-col items-center gap-6">
+        <div className="relative">
+          {/* Pulsing logo/icon */}
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" className="text-rose-gold animate-gentle-pulse">
+            <path d="M12 2c1 4 4 7 8 8-4 1-7 4-8 8-1-4-4-7-8-8 4-1 7-4 8-8z" fill="currentColor" />
+          </svg>
+          {/* Spinning ring */}
+          <div className="absolute inset-[-12px] border-2 border-rose-gold/20 border-t-rose-gold rounded-full animate-spin" />
+        </div>
+        <div className="flex flex-col items-center gap-2">
+          <span className="font-display text-ivory text-xl tracking-[0.2em] uppercase">Lumina</span>
+          <div className="w-32 h-1 bg-surface-2 rounded-full overflow-hidden">
+            <div className="h-full bg-primary animate-loading-bar" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -88,10 +112,12 @@ function App() {
           className="page-transition fadeIn"
           style={{ animationDelay: "0.1s" }}
         >
-          <Routes location={location}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
+          <Suspense fallback={<LoadingScreen />}>
+            <Routes location={location}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </Suspense>
         </div>
         <ChatWidget />
         <BackToTop />

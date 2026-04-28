@@ -6,7 +6,7 @@ export function Newsletter() {
   const { t } = useLanguage();
 
   return (
-    <section id="newsletter" className="relative py-24 md:py-40 px-5 sm:px-6 overflow-hidden">
+    <section id="newsletter" className="relative py-12 md:py-20 px-5 sm:px-6 overflow-hidden">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
