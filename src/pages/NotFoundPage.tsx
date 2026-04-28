@@ -8,22 +8,43 @@ function NotFoundPage() {
   }, []);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4 overflow-hidden">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4 overflow-hidden relative">
       <div className="grain-overlay" />
 
-      {/* Animated background elements */}
+      {/* Floating Particles - Match Home Page */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-rose-gold/5 rounded-full blur-3xl animate-gentle-pulse" />
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full bg-rose-gold/20 animate-float"
+            style={{
+              width: `${Math.random() * 6 + 2}px`,
+              height: `${Math.random() * 6 + 2}px`,
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${Math.random() * 10 + 10}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Animated background glows */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-rose-gold/10 rounded-full blur-[120px] animate-gentle-pulse" />
         <div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-champagne/5 rounded-full blur-3xl animate-gentle-pulse"
+          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-champagne/10 rounded-full blur-[150px] animate-gentle-pulse"
           style={{ animationDelay: "1s" }}
         />
       </div>
 
-      <div className="relative z-10 max-w-md text-center">
+      <div className="relative z-10 max-w-2xl text-center">
         {/* 404 Number with animation */}
-        <div className="animate-slide-in-top">
-          <h1 className="text-8xl md:text-9xl font-display text-transparent bg-clip-text bg-gradient-to-br from-rose-gold via-champagne to-ivory animate-gentle-pulse">
+        <div className="animate-scale-in">
+          <h1 
+            className="text-[12rem] md:text-[20rem] font-bold leading-none text-transparent bg-clip-text bg-gradient-to-br from-rose-gold via-champagne to-ivory opacity-20 select-none"
+            style={{ filter: "drop-shadow(0 0 30px rgba(232, 180, 184, 0.3))" }}
+          >
             404
           </h1>
         </div>

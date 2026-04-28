@@ -1,6 +1,14 @@
 import { HERO_DATA } from "@/constants";
 import { useLanguage } from "@/i18n/LanguageContext";
 
+// Respect reduced-motion preference once at module level
+const prefersReducedMotion =
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Reduced from 14 → 6 particles to ease GPU compositing layer pressure
+const PARTICLE_COUNT = 6;
+
 export function Hero() {
   const { t } = useLanguage();
 
@@ -15,25 +23,29 @@ export function Hero() {
         className="absolute inset-0 w-full h-full object-cover"
         width={1920}
         height={1080}
-        fetchPriority="high"
+        fetchpriority="high"
         decoding="async"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/20 to-background" />
-      {/* Floating particles */}
-      {[...Array(14)].map((_, i) => (
-        <span
-          key={i}
-          className="absolute rounded-full bg-rose-gold animate-float"
-          style={{
-            width: `${2 + (i % 3)}px`,
-            height: `${2 + (i % 3)}px`,
-            left: `${(i * 83) % 100}%`,
-            top: `${(i * 47) % 100}%`,
-            animationDelay: `${i * 0.4}s`,
-            opacity: 0.5,
-          }}
-        />
-      ))}
+
+      {/* Floating particles — skip for reduced-motion users */}
+      {!prefersReducedMotion &&
+        [...Array(PARTICLE_COUNT)].map((_, i) => (
+          <span
+            key={i}
+            className="absolute rounded-full bg-rose-gold animate-float"
+            style={{
+              width: `${2 + (i % 3)}px`,
+              height: `${2 + (i % 3)}px`,
+              left: `${(i * 83) % 100}%`,
+              top: `${(i * 47) % 100}%`,
+              animationDelay: `${i * 0.6}s`,
+              opacity: 0.4,
+              willChange: "transform",
+            }}
+          />
+        ))}
+
       <div className="relative z-10 text-center px-5 sm:px-6 max-w-5xl">
         <span className="inline-flex items-center gap-2 text-[9px] sm:text-[10px] uppercase tracking-[0.3em] sm:tracking-[0.4em] text-ivory/80 glass-card rounded-full px-4 sm:px-5 py-2">
           <span className="w-1.5 h-1.5 rounded-full bg-rose-gold animate-gentle-pulse" />{" "}

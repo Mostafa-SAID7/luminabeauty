@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
+import { useEffect, useRef, type ElementType, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { useReveal } from "@/hooks/useReveal";
 
-type RevealVariant = "up" | "left" | "right" | "scale" | "zoom" | "clip";
+type RevealVariant = "up" | "left" | "right" | "scale" | "zoom" | "clip" | "blur";
 
 interface RevealProps {
   as?: ElementType;
@@ -21,6 +22,7 @@ const variantClass: Record<RevealVariant, string> = {
   scale: "reveal reveal-scale",
   zoom: "img-zoom-in",
   clip: "img-clip-reveal",
+  blur: "reveal reveal-blur",
 };
 
 export function Reveal({
@@ -33,33 +35,7 @@ export function Reveal({
   className,
   children,
 }: RevealProps) {
-  const ref = useRef<HTMLElement | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    // Set visible immediately if prefers-reduced-motion
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(true);
-      return;
-    }
-
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          if (once) obs.disconnect();
-        } else if (!once) {
-          setVisible(false);
-        }
-      },
-      { threshold, rootMargin: "0px 0px -10% 0px" },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold, once]);
+  const { ref, visible } = useReveal(threshold, once);
 
   return (
     <Tag

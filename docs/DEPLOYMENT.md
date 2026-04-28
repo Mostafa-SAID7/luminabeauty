@@ -24,7 +24,7 @@ The worker name is configured in `wrangler.jsonc`:
   "name": "lumina-beauty",
   "compatibility_date": "2025-09-24",
   "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry",
+  "main": "dist/index.html",
 }
 ```
 

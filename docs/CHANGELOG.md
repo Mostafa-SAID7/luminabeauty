@@ -24,7 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
-- Replaced `@lovable.dev/vite-tanstack-config` with standard `@tanstack/react-start/config`
+- Replaced `@lovable.dev/vite-tanstack-config` with standard `@vitejs/plugin-react` and standard vite routing
 - All `SITE_URL` references updated from `luma-clone-buddy.lovable.app` → `luminabeauty.com`
 - `robots.txt` and `sitemap.xml` updated with canonical domain
 - `sitemap.xml` extended to include `/cart` route

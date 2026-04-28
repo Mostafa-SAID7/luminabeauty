@@ -1,6 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Electrolize&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -31,48 +28,37 @@
 
   * {
     @apply border-border;
-    font-family: "Electrolize", sans-serif;
-  }
-
-  html,
-  body {
-    @apply bg-background text-foreground;
-    font-family: "Electrolize", sans-serif !important;
   }
 
   html {
-    scroll-behavior: smooth;
+    font-family: "Electrolize", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Electrolize", sans-serif;
+  }
+
+  button, 
+  input, 
+  optgroup, 
+  select, 
+  textarea,
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-family: "Cormorant Garamond", serif !important;
-  }
-
-  p,
-  span,
-  a,
-  button,
-  input,
-  textarea,
-  label,
-  div,
-  li,
-  td,
-  th,
-  option,
-  select {
-    font-family: "Electrolize", sans-serif !important;
+    font-family: "Electrolize", sans-serif;
   }
 }
 
 @layer utilities {
   .font-display {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "Electrolize", sans-serif;
   }
 
   .text-balance {
@@ -110,7 +96,7 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 9999;
+    z-index: 9998; /* below CartAddedFeedback at 9999 */
     opacity: 0.025;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   }
@@ -228,6 +214,7 @@
   .reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
+    will-change: auto;
   }
 
   .reveal-left {
@@ -251,25 +238,43 @@
     transform: scale(1);
   }
 
+  .reveal-blur {
+    opacity: 0;
+    filter: blur(20px);
+    transform: scale(1.05);
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal-blur.is-visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+
   .img-zoom-in {
+    opacity: 0;
     transform: scale(1.08);
     transition:
+      opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
       transform 1.6s cubic-bezier(0.22, 1, 0.36, 1),
       filter 1.6s cubic-bezier(0.22, 1, 0.36, 1);
     filter: brightness(0.85);
   }
 
   .img-zoom-in.is-visible {
+    opacity: 1;
     transform: scale(1);
     filter: brightness(1);
   }
 
   .img-clip-reveal {
+    opacity: 0;
     clip-path: inset(0 0 100% 0);
-    transition: clip-path 1.4s cubic-bezier(0.77, 0, 0.175, 1);
+    transition: all 1.4s cubic-bezier(0.77, 0, 0.175, 1);
   }
 
   .img-clip-reveal.is-visible {
+    opacity: 1;
     clip-path: inset(0 0 0 0);
   }
 
@@ -449,6 +454,15 @@
   }
 }
 
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 @keyframes scale-in {
   from {
     transform: scale(0.95);
@@ -457,6 +471,28 @@
   to {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes page-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
   }
 }
 
@@ -485,11 +521,57 @@
 }
 
 .animate-fade-in {
-  animation: fade-in 0.2s ease-out;
+  animation: fade-in 0.2s ease-out forwards;
 }
 
 .animate-scale-in {
-  animation: scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Page Transition Animations */
+.page-transition {
+  width: 100%;
+  min-height: 100vh;
+  animation-fill-mode: both;
+}
+
+.page-transition.fadeIn {
+  animation: page-fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.page-transition.fadeOut {
+  animation: page-fade-out 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent layout shift during transitions */
+body {
+  overflow-x: hidden;
+}
+
+/* Loading state */
+.page-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(232, 180, 184, 0.8), transparent);
+  animation: loading-bar 1.5s ease-in-out infinite;
+  z-index: 9999;
+}
+
+@keyframes loading-bar {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 /* RTL Support */
@@ -497,23 +579,8 @@
   direction: rtl;
 }
 
-[dir="rtl"] *,
-[dir="rtl"] html,
-[dir="rtl"] body,
-[dir="rtl"] p,
-[dir="rtl"] span,
-[dir="rtl"] a,
-[dir="rtl"] button,
-[dir="rtl"] input,
-[dir="rtl"] textarea,
-[dir="rtl"] label,
-[dir="rtl"] div,
-[dir="rtl"] li,
-[dir="rtl"] td,
-[dir="rtl"] th,
-[dir="rtl"] option,
-[dir="rtl"] select {
-  font-family: "Cairo", sans-serif !important;
+[dir="rtl"] body {
+  font-family: "Cairo", sans-serif;
 }
 
 [dir="rtl"] h1,
@@ -522,35 +589,7 @@
 [dir="rtl"] h4,
 [dir="rtl"] h5,
 [dir="rtl"] h6 {
-  font-family: "Cairo", sans-serif !important;
-}
-
-[dir="ltr"] *,
-[dir="ltr"] html,
-[dir="ltr"] body,
-[dir="ltr"] p,
-[dir="ltr"] span,
-[dir="ltr"] a,
-[dir="ltr"] button,
-[dir="ltr"] input,
-[dir="ltr"] textarea,
-[dir="ltr"] label,
-[dir="ltr"] div,
-[dir="ltr"] li,
-[dir="ltr"] td,
-[dir="ltr"] th,
-[dir="ltr"] option,
-[dir="ltr"] select {
-  font-family: "Electrolize", sans-serif !important;
-}
-
-[dir="ltr"] h1,
-[dir="ltr"] h2,
-[dir="ltr"] h3,
-[dir="ltr"] h4,
-[dir="ltr"] h5,
-[dir="ltr"] h6 {
-  font-family: "Cormorant Garamond", serif !important;
+  font-family: "Cairo", sans-serif;
 }
 
 [dir="rtl"] .shine-btn::before {
@@ -559,4 +598,22 @@
 
 [dir="rtl"] .shine-btn:hover::before {
   left: -100%;
+}
+
+/* CartAddedFeedback — progress drain bar */
+@keyframes progress-drain {
+  from { width: 100%; }
+  to   { width: 0%; }
+}
+
+/* CartAddedFeedback — slide up from bottom */
+@keyframes slide-up-fade {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }

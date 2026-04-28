@@ -16,11 +16,24 @@ export function BeforeAfter() {
     setPos(Math.min(95, Math.max(5, p)));
   }, []);
 
+  // Mouse-up cancels drag anywhere on the page
   useEffect(() => {
     const onUp = () => setDragging(false);
     window.addEventListener("mouseup", onUp);
     return () => window.removeEventListener("mouseup", onUp);
   }, []);
+
+  // Passive touchmove to avoid blocking iOS scroll
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const onMove = (e: TouchEvent) => {
+      if (!dragging) return;
+      updateFromX(e.touches[0].clientX);
+    };
+    el.addEventListener("touchmove", onMove, { passive: true });
+    return () => el.removeEventListener("touchmove", onMove);
+  }, [dragging, updateFromX]);
 
   return (
     <section
@@ -57,7 +70,6 @@ export function BeforeAfter() {
             setDragging(true);
             updateFromX(e.touches[0].clientX);
           }}
-          onTouchMove={(e) => updateFromX(e.touches[0].clientX)}
           onTouchEnd={() => setDragging(false)}
         >
           <img

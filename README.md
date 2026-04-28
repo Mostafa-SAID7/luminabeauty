@@ -1,6 +1,6 @@
 # Lumina Beauty
 
-> Luxury natural skincare e-commerce — built with TanStack Start, React 19, Tailwind CSS v4, and Cloudflare Workers.
+> Luxury natural skincare e-commerce — built with Vite, React 19, React Router, Tailwind CSS v4, and Cloudflare Workers.
 
 [![CI](https://github.com/your-org/luma-mirror-clone/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/luma-mirror-clone/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
@@ -15,8 +15,10 @@
 - **Live chat widget** — bottom-right floating support chat
 - **Before/after image comparison** — interactive drag slider
 - **Scroll animations** — reveal, clip, zoom, and stagger effects
-- **SSR + Edge** — TanStack Start rendered at the edge via Cloudflare Workers
+- **Modern Routing** — React Router for seamless client-side navigation
 - **SEO-ready** — per-page meta, Open Graph, structured data (JSON-LD), sitemap, robots.txt
+- **PWA Ready** — installable as a native app with offline capabilities (vite-plugin-pwa)
+- **Highly Optimized** — throttled scroll listeners, native passive touch events, memory-efficient IntersectionObservers, and GPU-accelerated animations
 
 ---
 
@@ -40,7 +42,7 @@
 │   │   ├── blog.tsx         # Beauty journal
 │   │   └── contact.tsx      # Contact
 │   ├── styles.css           # Tailwind v4 CSS-first config + design tokens
-│   └── router.tsx           # TanStack Router setup
+│   └── App.tsx              # Main React Router setup
 ├── public/
 │   ├── robots.txt
 │   └── sitemap.xml

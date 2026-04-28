@@ -52,7 +52,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        display: ["Cormorant Garamond", "serif"],
+        display: ["Electrolize", "sans-serif"],
         sans: ["Electrolize", "sans-serif"],
         body: ["Electrolize", "sans-serif"],
       },

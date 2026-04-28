@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import type { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useCart } from "@/context/CartContext";
+import { CartSidebar } from "../CartSidebar";
+import { useScrollLock } from "@/hooks/useScrollLock";
 
 export function Logo() {
   return (
@@ -12,9 +15,21 @@ export function Logo() {
         <path d="M12 2c1 4 4 7 8 8-4 1-7 4-8 8-1-4-4-7-8-8 4-1 7-4 8-8z" fill="currentColor" />
       </svg>
       <span className="font-display text-2xl tracking-tight text-ivory">
-        Lumina<span className="text-rose-gold">.</span>
+        Lumina
       </span>
     </Link>
+  );
+}
+
+/** Hoisted outside Header to prevent component-type recreation on every render */
+function NavLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a
+      href={href}
+      className="hover:text-ivory transition-colors relative text-muted-foreground"
+    >
+      {children}
+    </a>
   );
 }
 
@@ -22,25 +37,26 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
-  const { totalItems } = useCart();
+  const { totalItems, isCartOpen, setIsCartOpen } = useCart();
   const location = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [mobileMenuOpen]);
+  // Use scroll lock hook instead of direct body.style.overflow mutation
+  useScrollLock(mobileMenuOpen);
 
   const closeMenu = () => setMobileMenuOpen(false);
 
@@ -48,33 +64,16 @@ export function Header() {
     setLanguage(language === "en" ? "ar" : "en");
   };
 
-  const isActive = (path: string) => {
-    if (path === "/") return location.pathname === "/";
-    return location.pathname.startsWith(path);
-  };
 
-  const NavLink = ({ href, children }: { href: string; children: ReactNode }) => {
-    const active =
-      href === "/#products" && location.pathname === "/" && location.hash === "#products";
-    return (
-      <a
-        href={href}
-        className={`hover:text-ivory transition-colors relative ${
-          active ? "text-ivory" : "text-muted-foreground"
-        }`}
-      >
-        {children}
-        {active && (
-          <span className="absolute -bottom-1 left-0 right-0 h-px bg-rose-gold animate-scale-in" />
-        )}
-      </a>
-    );
-  };
 
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "glass-card" : ""}`}
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? "bg-surface/80 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+            : "bg-gradient-to-b from-background/80 to-transparent"
+        }`}
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 h-16 sm:h-20 flex items-center justify-between">
           <Logo />
@@ -102,11 +101,9 @@ export function Header() {
                 AR
               </span>
             </button>
-            <Link
-              to="/cart"
-              className={`relative p-2 transition-colors ${
-                isActive("/cart") ? "text-ivory" : "text-muted-foreground hover:text-ivory"
-              }`}
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative p-2 text-muted-foreground hover:text-ivory transition-colors"
               aria-label={t.header.viewCart}
             >
               <ShoppingCart size={20} />
@@ -115,7 +112,7 @@ export function Header() {
                   {totalItems}
                 </span>
               )}
-            </Link>
+            </button>
             <a
               href="/#products"
               className="hidden sm:inline-block shine-btn bg-primary text-primary-foreground text-[10px] sm:text-xs uppercase tracking-[0.2em] rounded-full px-4 sm:px-5 py-2.5 sm:py-3 hover:opacity-90 transition-all duration-300 rose-gold-glow"
@@ -136,11 +133,20 @@ export function Header() {
       </header>
 
       {/* Mobile Menu Overlay */}
-      {mobileMenuOpen && (
+      {mobileMenuOpen && createPortal(
         <div
-          className="fixed inset-0 bg-background/95 backdrop-blur-lg z-40 md:hidden animate-fade-in"
+          className="fixed inset-0 bg-background/95 backdrop-blur-lg z-[10020] md:hidden animate-fade-in"
           onClick={closeMenu}
         >
+          {/* Close Button Inside Menu */}
+          <button
+            onClick={closeMenu}
+            className="absolute top-6 right-6 p-2 text-muted-foreground hover:text-ivory transition-all hover:rotate-90 group"
+            aria-label="Close menu"
+          >
+            <X size={32} />
+          </button>
+
           <nav
             className="flex flex-col items-center justify-center h-full gap-8 text-lg uppercase tracking-[0.2em] animate-slide-in-top"
             onClick={(e) => e.stopPropagation()}
@@ -197,8 +203,12 @@ export function Header() {
               {t.header.shopNow}
             </a>
           </nav>
-        </div>
+        </div>,
+        document.body
       )}
+
+      {/* Cart Sidebar */}
+      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </>
   );
 }

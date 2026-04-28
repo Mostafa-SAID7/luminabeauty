@@ -47,7 +47,7 @@ export function Products() {
         <Reveal stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {PRODUCTS.map((p) => (
             <article
-              key={p.name}
+              key={p.slug}
               className="product-card-hover group relative bg-surface border border-border rounded-3xl overflow-hidden cursor-pointer"
               onClick={() =>
                 setSelectedProduct({

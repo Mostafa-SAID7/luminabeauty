@@ -23,39 +23,52 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border mt-20 py-12 px-6 lg:px-10">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-        <Logo />
-        <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-          © {new Date().getFullYear()} Lumina Beauty — {t.footer.tagline}
-        </p>
-        <div className="flex gap-6 text-muted-foreground">
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-rose-gold transition-colors"
-            aria-label={t.footer.social.instagram}
-          >
-            <Instagram size={20} />
-          </a>
-          <a
-            href="https://pinterest.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-rose-gold transition-colors"
-            aria-label={t.footer.social.pinterest}
-          >
-            <Pinterest size={20} />
-          </a>
-          <a
-            href="https://tiktok.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-rose-gold transition-colors"
-            aria-label={t.footer.social.tiktok}
-          >
-            <TikTokIcon className="w-5 h-5" />
-          </a>
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-row items-center justify-between gap-4 overflow-x-auto no-scrollbar py-2">
+          {/* Logo Section */}
+          <div className="flex-shrink-0">
+            <Logo />
+          </div>
+
+          {/* Center Section: Copyright & Design */}
+          <div className="flex flex-row items-center gap-4 text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.3em] text-muted-foreground/60 whitespace-nowrap">
+            <p className="hidden sm:block">© {new Date().getFullYear()} Lumina Beauty</p>
+            <p className="sm:hidden">© 2026</p>
+            <span className="w-px h-3 bg-border/50" />
+            <p>
+              By{" "}
+              <a 
+                href="https://m-said-portfolio.netlify.app" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-rose-gold hover:text-champagne transition-colors duration-300 underline underline-offset-4 decoration-rose-gold/20 hover:decoration-rose-gold"
+              >
+                M.Said
+              </a>
+            </p>
+          </div>
+
+          {/* Social Section */}
+          <div className="flex items-center gap-4 sm:gap-6 text-muted-foreground flex-shrink-0">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-rose-gold transition-colors duration-300"
+              aria-label="Instagram"
+            >
+              <Instagram size={16} />
+            </a>
+            <a
+              href="https://tiktok.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-rose-gold transition-colors duration-300"
+              aria-label="TikTok"
+            >
+              <TikTokIcon className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </div>
     </footer>
