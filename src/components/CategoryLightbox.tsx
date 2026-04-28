@@ -1,4 +1,4 @@
-import { X, ShoppingCart } from "lucide-react";
+import { X, ShoppingCart, Plus } from "lucide-react";
 import { SmartImage } from "./SmartImage";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -54,11 +54,11 @@ export function CategoryLightbox({
 
   return (
     <div
-      className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-background/95 backdrop-blur-xl animate-fade-in overflow-y-auto"
+      className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-background/95 backdrop-blur-xl animate-fade-in"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-7xl bg-surface border border-border rounded-3xl overflow-hidden shadow-2xl animate-scale-in my-8"
+        className="relative w-full max-w-6xl max-h-[90vh] bg-surface border border-border rounded-3xl overflow-hidden shadow-2xl animate-scale-in flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -69,69 +69,147 @@ export function CategoryLightbox({
           <X size={24} />
         </button>
 
-        {/* Header with category image */}
-        <div className="relative h-48 md:h-64 overflow-hidden">
+        {/* Header with category info */}
+        <div className="relative h-32 md:h-40 overflow-hidden shrink-0">
           <SmartImage
             src={categoryImage}
             alt={category}
             width={1920}
-            height={400}
+            height={300}
             wrapperClassName="w-full h-full"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/60 to-transparent" />
-          <div className="absolute inset-0 flex items-end p-8 md:p-12">
+          <div className="absolute inset-0 flex items-end p-6 md:p-8">
             <div>
               <span className="text-[10px] uppercase tracking-[0.3em] text-rose-gold">
                 {productCount} {t.categories.products}
               </span>
-              <h2 className="mt-2 font-display text-4xl md:text-5xl text-ivory">
+              <h2 className="mt-1 font-display text-3xl md:text-4xl text-ivory">
                 {categoryNames[category] || category}
               </h2>
             </div>
           </div>
         </div>
 
-        {/* Products Grid */}
-        <div className="p-6 md:p-12">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        {/* Table Container - Scrollable */}
+        <div className="flex-1 overflow-auto">
+          {/* Desktop Table View */}
+          <div className="hidden md:block">
+            <table className="w-full">
+              <thead className="sticky top-0 bg-surface-2 border-b border-border z-10">
+                <tr>
+                  <th className="text-left py-4 px-6 text-xs uppercase tracking-[0.2em] text-muted-foreground font-normal">
+                    Product
+                  </th>
+                  <th className="text-left py-4 px-6 text-xs uppercase tracking-[0.2em] text-muted-foreground font-normal">
+                    Description
+                  </th>
+                  <th className="text-right py-4 px-6 text-xs uppercase tracking-[0.2em] text-muted-foreground font-normal">
+                    Price
+                  </th>
+                  <th className="text-center py-4 px-6 text-xs uppercase tracking-[0.2em] text-muted-foreground font-normal">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {allProducts.map((product, index) => (
+                  <tr
+                    key={`${product.slug}-${index}`}
+                    className="border-b border-border hover:bg-background/50 transition-colors duration-200"
+                  >
+                    <td className="py-4 px-6">
+                      <div className="flex items-center gap-4">
+                        <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-background">
+                          <SmartImage
+                            src={product.img}
+                            alt={product.alt}
+                            width={100}
+                            height={100}
+                            wrapperClassName="w-full h-full"
+                            className="w-full h-full object-cover"
+                          />
+                          {product.badge && (
+                            <span className="absolute top-1 left-1 text-[8px] uppercase tracking-wider bg-primary text-primary-foreground rounded px-1.5 py-0.5">
+                              {product.badge}
+                            </span>
+                          )}
+                        </div>
+                        <div className="min-w-0">
+                          <h3 className="font-display text-base text-ivory truncate">
+                            {product.name}
+                          </h3>
+                          <p className="text-xs text-muted-foreground">{product.category}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-4 px-6">
+                      <p className="text-sm text-muted-foreground line-clamp-2">{product.desc}</p>
+                    </td>
+                    <td className="py-4 px-6 text-right">
+                      <span className="font-display text-xl text-champagne">${product.price}</span>
+                    </td>
+                    <td className="py-4 px-6 text-center">
+                      <button
+                        onClick={() => handleAddToCart(product)}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 text-xs uppercase tracking-wider"
+                        aria-label={t.products.addToCart}
+                      >
+                        <Plus size={14} />
+                        <span className="hidden lg:inline">Add</span>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile Card View */}
+          <div className="md:hidden divide-y divide-border">
             {allProducts.map((product, index) => (
-              <article
+              <div
                 key={`${product.slug}-${index}`}
-                className="group relative bg-background border border-border rounded-2xl overflow-hidden hover:border-rose-gold/30 transition-all duration-300"
+                className="p-4 hover:bg-background/50 transition-colors duration-200"
               >
-                <div className="relative aspect-[3/4] overflow-hidden bg-surface">
-                  <SmartImage
-                    src={product.img}
-                    alt={product.alt}
-                    width={400}
-                    height={533}
-                    wrapperClassName="w-full h-full"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  {product.badge && (
-                    <span className="absolute top-3 left-3 text-[9px] uppercase tracking-[0.2em] bg-primary text-primary-foreground rounded-full px-2 py-1">
-                      {product.badge}
-                    </span>
-                  )}
-                </div>
-                <div className="p-4">
-                  <h3 className="font-display text-base md:text-lg text-ivory line-clamp-1">
-                    {product.name}
-                  </h3>
-                  <p className="mt-1 text-xs text-muted-foreground line-clamp-1">{product.desc}</p>
-                  <div className="mt-3 flex items-center justify-between gap-2">
-                    <span className="font-display text-lg text-champagne">${product.price}</span>
-                    <button
-                      onClick={() => handleAddToCart(product)}
-                      className="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
-                      aria-label={t.products.addToCart}
-                    >
-                      <ShoppingCart size={16} />
-                    </button>
+                <div className="flex gap-4">
+                  <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-background">
+                    <SmartImage
+                      src={product.img}
+                      alt={product.alt}
+                      width={100}
+                      height={100}
+                      wrapperClassName="w-full h-full"
+                      className="w-full h-full object-cover"
+                    />
+                    {product.badge && (
+                      <span className="absolute top-1 left-1 text-[8px] uppercase tracking-wider bg-primary text-primary-foreground rounded px-1.5 py-0.5">
+                        {product.badge}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-display text-base text-ivory line-clamp-1">
+                      {product.name}
+                    </h3>
+                    <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                      {product.desc}
+                    </p>
+                    <div className="flex items-center justify-between mt-3">
+                      <span className="font-display text-lg text-champagne">${product.price}</span>
+                      <button
+                        onClick={() => handleAddToCart(product)}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 text-xs uppercase tracking-wider"
+                        aria-label={t.products.addToCart}
+                      >
+                        <ShoppingCart size={12} />
+                        Add
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </article>
+              </div>
             ))}
           </div>
         </div>

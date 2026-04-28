@@ -53,7 +53,8 @@ export default {
       },
       fontFamily: {
         display: ["Cormorant Garamond", "serif"],
-        sans: ["Inter", "sans-serif"],
+        sans: ["Electrolize", "sans-serif"],
+        body: ["Electrolize", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {

@@ -31,11 +31,13 @@
 
   * {
     @apply border-border;
+    font-family: "Electrolize", sans-serif;
   }
 
+  html,
   body {
     @apply bg-background text-foreground;
-    font-family: "Electrolize", sans-serif;
+    font-family: "Electrolize", sans-serif !important;
   }
 
   html {
@@ -48,7 +50,7 @@
   h4,
   h5,
   h6 {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "Cormorant Garamond", serif !important;
   }
 
   p,
@@ -58,8 +60,13 @@
   input,
   textarea,
   label,
-  div {
-    font-family: inherit;
+  div,
+  li,
+  td,
+  th,
+  option,
+  select {
+    font-family: "Electrolize", sans-serif !important;
   }
 }
 
@@ -491,6 +498,7 @@
 }
 
 [dir="rtl"] *,
+[dir="rtl"] html,
 [dir="rtl"] body,
 [dir="rtl"] p,
 [dir="rtl"] span,
@@ -499,7 +507,12 @@
 [dir="rtl"] input,
 [dir="rtl"] textarea,
 [dir="rtl"] label,
-[dir="rtl"] div {
+[dir="rtl"] div,
+[dir="rtl"] li,
+[dir="rtl"] td,
+[dir="rtl"] th,
+[dir="rtl"] option,
+[dir="rtl"] select {
   font-family: "Cairo", sans-serif !important;
 }
 
@@ -513,6 +526,7 @@
 }
 
 [dir="ltr"] *,
+[dir="ltr"] html,
 [dir="ltr"] body,
 [dir="ltr"] p,
 [dir="ltr"] span,
@@ -521,7 +535,12 @@
 [dir="ltr"] input,
 [dir="ltr"] textarea,
 [dir="ltr"] label,
-[dir="ltr"] div {
+[dir="ltr"] div,
+[dir="ltr"] li,
+[dir="ltr"] td,
+[dir="ltr"] th,
+[dir="ltr"] option,
+[dir="ltr"] select {
   font-family: "Electrolize", sans-serif !important;
 }
 
